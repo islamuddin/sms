@@ -46,9 +46,9 @@
                                 <div class="card card_border border-primary-top p-3" id="blue">
                                     <i class="lnr lnr-envelope"> </i>
                                     <h3 class="text-light number"><?= $total ?></h3>
-                                    <p class="stat-text text-light">Total</p>
+                                    <p class="stat-text text-light">Sent</p>
                                     <div class="row text-white">
-                                        <span class="col-md-8">Sent SMS<i class="fas fa-key-skeleton    "></i></span>
+                                        <span class="col-md-8">SMS<i class="fas fa-key-skeleton    "></i></span>
                                     </div>
                                 </div>
                             </a>
