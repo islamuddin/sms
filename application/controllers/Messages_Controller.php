@@ -12,6 +12,8 @@ class Messages_Controller extends CI_Controller
 		parent::__construct();
 		$this->load->model('messagesModel');
 		$this->load->model('contactsModel');
+		$this->load->helper('date');
+
 
 
 		$this->load->library('form_validation');

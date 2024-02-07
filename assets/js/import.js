@@ -29,8 +29,8 @@ function processCSV() {
                     type: 'POST',
                     url: 'importAction',
                     data: {
-                        name: rowData[0],
-                        contact_no: rowData[1],
+                        contact_no: rowData[0],
+                        name: (rowData[1]) ? rowData[1] : '',
                     },
                     success: function(response) {
                         console.log(response);

@@ -17,7 +17,7 @@
                             <a href="<?php echo base_url('contacts/all'); ?>">
                                 <div class="card card_border border-primary-top p-3" id="blue">
                                     <i class="lnr lnr-phone-handset"> </i>
-                                    <h3 class="text-light number"><?= $total ?></h3>
+                                    <h3 class="text-light number"><?= $contacts_total ?></h3>
                                     <p class="stat-text text-light">Total</p>
                                     <div class="row text-white">
                                         <span class="col-md-8">Contacts</span>
@@ -31,7 +31,7 @@
                             <a href="<?php echo base_url('messages/all'); ?>">
                                 <div class="card card_border border-primary-top p-3" id="blue">
                                     <i class="lnr lnr-envelope"> </i>
-                                    <h3 class="text-light number"><?= $total ?></h3>
+                                    <h3 class="text-light number"><?= $messages_total ?></h3>
                                     <p class="stat-text text-light">Total</p>
                                     <div class="row text-white">
                                         <span class="col-md-8">Messages</span>
@@ -45,7 +45,7 @@
                             <a href="<?php echo base_url('messages/all'); ?>">
                                 <div class="card card_border border-primary-top p-3" id="blue">
                                     <i class="lnr lnr-envelope"> </i>
-                                    <h3 class="text-light number"><?= $total ?></h3>
+                                    <h3 class="text-light number"><?= $sms_sent ?></h3>
                                     <p class="stat-text text-light">Sent</p>
                                     <div class="row text-white">
                                         <span class="col-md-8">SMS<i class="fas fa-key-skeleton    "></i></span>

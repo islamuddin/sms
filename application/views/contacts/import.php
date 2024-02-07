@@ -51,4 +51,4 @@
 
 <!-- Script -->
 
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/import.js?v=1"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/import.js?v=2"></script>

@@ -147,7 +147,7 @@
 										</div>
 									</div>
 									<div class="timeline-vertical-line"></div>
-								<?php endforeach; }else{ echo "No messages sent"; } ?>
+								<?php endforeach; }else{ echo "No message sent"; } ?>
 							</div>
 						</div>
 					</div>

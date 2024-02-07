@@ -118,4 +118,20 @@ public function markMessageAsSent($data) {
 }
 
 
+
+public function getCountSMSSent() {
+	$this->db->select('COUNT(*) as count');
+	$this->db->from('messages_contacts');
+
+	$query = $this->db->get();
+	$result = $query->result();
+
+	if (!empty($result)) {
+		return $result[0]->count;
+	}
+
+	return 0;
+}
+
+
 }

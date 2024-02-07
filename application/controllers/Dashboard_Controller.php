@@ -9,6 +9,7 @@ class Dashboard_Controller extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('contactsModel');
+		$this->load->model('messagesModel');
 		$this->load->library('form_validation');
 
 		$this->isLoggedIn();
@@ -19,7 +20,9 @@ class Dashboard_Controller extends CI_Controller
 	{
 		if ($this->isAdmin() != TRUE) {
 			$this->load->model('contactsModel');
-			 $data['total'] = $this->contactsModel->getCountAllRecords();			
+			 $data['contacts_total'] = $this->contactsModel->getCountAllRecords();		
+			 $data['messages_total'] = $this->messagesModel->getCountAllRecords();
+			 $data['sms_sent'] = $this->messagesModel->getCountSMSSent();
 			 
 
 			$this->load->view('include/header', $this->global);
