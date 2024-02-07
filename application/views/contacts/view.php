@@ -49,7 +49,7 @@
                     <h2>Contact Detail 
 						<span class="pull-right">
 							<a onclick="history.back()" class="btn btn-info mr-2 text-light">Go Back</a>
-							<a class="btn btn-primary" href="<?php echo base_url();?>records/edit?id=<?= $record->id ?>"> <i class="fa fa-pencil"></i> Edit</a>
+							<a class="btn btn-primary" href="<?php echo base_url();?>contacts/edit?id=<?= $record->id ?>"> <i class="fa fa-pencil"></i> Edit</a>
 							<a onclick="window.print();" class="btn btn-info mr-2 text-light">Print</a>
 						</span>
 					</h2>
