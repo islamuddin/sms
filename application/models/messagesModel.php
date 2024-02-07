@@ -15,21 +15,24 @@ class messagesModel extends CI_Model
 			return $this->db->insert_id(); // Return the ID of the inserted record
     }    
 
-    public function getAllRecords() {
-        $this->db->select('messages.*');
-
-        $this->db->from('messages');
-        // Add more joins and columns as needed
-    
-        $query = $this->db->get();
-		//echo $this->db->last_query(); exit;
-    
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        }
-    
-        return array(); // Return an empty array if no messages found
-    }
+	public function getAllRecords() {
+		$this->db->select('messages.*, COUNT(messages_contacts.id) as recipient_count');
+	
+		$this->db->from('messages');
+		$this->db->join('messages_contacts', 'messages.id = messages_contacts.message_id', 'left');
+		$this->db->group_by('messages.id');
+		// Add more joins and columns as needed
+	
+		$query = $this->db->get();
+		// echo $this->db->last_query(); exit;
+	
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		}
+	
+		return array(); // Return an empty array if no messages found
+	}
+	
 	
     // Get the count of all messages
 	public function getCountAllRecords() {
@@ -65,6 +68,7 @@ public function messagesByContactId($id) {
     $this->db->from('messages_contacts mc');
     $this->db->join('messages m', 'm.id = mc.message_id', 'inner');
     $this->db->where('mc.contact_id', $id);
+	$this->db->order_by('m.created_date', 'desc'); 
     $query = $this->db->get();
 
     if ($query->num_rows() > 0) {

@@ -28,22 +28,24 @@ class contactsModel extends CI_Model
 
 				
     }    
-
-    public function getAllRecords() {
-        $this->db->select('contacts.*');
-
-        $this->db->from('contacts');
-        // Add more joins and columns as needed
-    
-        $query = $this->db->get();
-		//echo $this->db->last_query(); exit;
-    
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        }
-    
-        return array(); // Return an empty array if no contacts found
-    }
+	public function getAllRecords() {
+		$this->db->select('contacts.*, COUNT(messages_contacts.id) as message_sent_count');
+	
+		$this->db->from('contacts');
+		$this->db->join('messages_contacts', 'contacts.id = messages_contacts.contact_id', 'left');
+		$this->db->group_by('contacts.id');
+		// Add more joins and columns as needed
+	
+		$query = $this->db->get();
+		// echo $this->db->last_query(); exit;
+	
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		}
+	
+		return array(); // Return an empty array if no contacts found
+	}
+	
 
 	public function getAllContacts() {
         $this->db->select('contacts.*');

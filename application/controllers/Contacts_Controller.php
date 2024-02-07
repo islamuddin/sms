@@ -14,6 +14,7 @@ class Contacts_Controller extends CI_Controller
 		$this->load->model('messagesModel');
 
 		$this->load->library('form_validation');
+		$this->load->helper('date');
 		// $this->load->helper('url');
 		// $this->load->helper('file');
 		// $this->load->helper('download');
@@ -228,6 +229,12 @@ class Contacts_Controller extends CI_Controller
 		$this->load->view('contacts/all', $data);
 		$this->load->view('include/footer');
 	}
+
+
+
+
+
+
 
 	
 }

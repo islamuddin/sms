@@ -49,8 +49,6 @@
                 <th>Message</th>
                 <th>Sent On</th>
                 <th>Total Recipients</th>
-
-
 				<th>Action</th> 
             </tr>
         </thead>
@@ -59,7 +57,7 @@
                 <tr>
                 	<td><?= $record->message ?></td>
                     <td><?= $record->created_date ?></td>
-                    <td><a href="<?php echo base_url();?>messages/view?id=<?= $record->id ?>">2</a></td>
+                    <td><a href="<?php echo base_url();?>messages/view?id=<?= $record->id ?>"><?= $record->recipient_count ?></a></td>
                     <td>
 						<a href="<?php echo base_url();?>messages/view?id=<?= $record->id ?>">View</a> | <a href="<?php echo base_url();?>messages/delete?id=<?= $record->id ?>">Delete</a>
 					</td> 
