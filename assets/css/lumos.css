@@ -1,0 +1,106 @@
+:root {
+  --lumos-background: rgba(.8, .8, .8, .7);
+  --lumos-padding: 2rem;
+  --lumos-child-margin-top: 1rem;
+  --lumos-transition-duration: 350ms;
+}
+
+img[data-action=lumos] {
+  cursor: zoom-in;
+}
+
+#lumos-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  padding: var(--lumos-padding);
+  cursor: zoom-out;
+  user-select: none;
+  transition: all var(--lumos-transition-duration) ease-in-out;
+  will-change: opacity;
+  opacity: 0;
+  background: var(--lumos-background);
+}
+#lumos-container.visible {
+  display: flex;
+  z-index: 9999;
+  animation-name: lumos-animate-in;
+  animation-duration: var(--lumos-transition-duration);
+  animation-fill-mode: forwards;
+}
+#lumos-container.hidden {
+  display: flex;
+  animation: lumos-animate-out;
+  animation-duration: var(--lumos-transition-duration);
+  animation-fill-mode: forwards;
+}
+#lumos-figure {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+}
+#lumos-image {
+  overflow: hidden;
+  object-fit: contain;
+  max-width: 100%;
+  width: auto;
+  max-height: 100%;
+  height: auto;
+  border: 2px solid var(--light);
+  border-radius: 10px;
+}
+.lumos-figure {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+}
+.lumos-image {
+  overflow: hidden;
+  object-fit: contain;
+  max-width: 100%;
+  width: auto;
+  max-height: 100%;
+  height: auto;
+  border: 2px solid var(--light);
+  border-radius: 10px;
+}
+#lumos-caption {
+  margin-top: var(--lumos-child-margin-top);
+  text-align: center;
+  color: white;
+  text-shadow: 0 0 5px black;
+}
+#lumos-link {
+  margin-top: var(--lumos-child-margin-top);
+}
+
+@keyframes lumos-animate-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes lumos-animate-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

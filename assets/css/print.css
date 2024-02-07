@@ -1,0 +1,100 @@
+@media print {
+    body{overflow: hidden;}
+    
+    h2 {
+        display: none;
+    }
+    h3 {
+        display: none;
+    }
+    .panel-heading {
+        display: none;
+    }
+    
+   
+   
+    @page {
+        size: A4;
+        orientation: portrait !important;
+    }
+    .content-top-gap{margin-top: 0px !important;}
+    .no-print{display: none;}
+    /* #id_card{ border: 2px solid #000 !important;} */
+    #movetop{display: none !important;}
+    .id-card-holder {
+        width: 350px;
+        padding: 4px;
+        /* margin: 0 auto; */
+        margin-left: 0px;
+        background-color: #1f1f1f;
+        border-radius: 5px;
+        /* position: relative; */
+        left: 0px !important;
+    }
+    #page_break{left: 0px;
+        page-break-before: always !important; margin-left: 0px;}
+    /* .id-card-holder:after {
+        content: '';
+        width: 7px;
+        display: block;
+        background-color: #0a0a0a;
+        height: 100px;
+        position: absolute;
+        top: 105px;
+        border-radius: 0 5px 5px 0;
+    }
+    .id-card-holder:before {
+        content: '';
+        width: 7px;
+        display: block;
+        background-color: #0a0a0a;
+        height: 100px;
+        position: absolute;
+        top: 105px;
+        left: 339px;
+        border-radius: 5px 0 0 5px;
+    } */
+    .id-card {
+
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        /* box-shadow: 0 0 1.5px 0px #b9b9b9; */
+        position: relative !important;
+        margin-left: 0px;
+    }
+    .id-card img {
+        margin: 0 auto;
+    }
+    .id-card-header img {
+        width: 170px;
+        /* margin-top: 15px; */
+        display: block;
+    }
+    .id-card-photo img {
+        width: 110px;
+        /* margin-top: 15px; */
+    }
+    .id-card > h2 {
+        font-size: 21px;
+        margin: 10px 0;
+        display: block;
+    }
+    .id-card > h4 {
+        font-size: 12px;
+        margin: 5px 0;
+        display: block;
+    }
+    .id-card > h3 {
+        font-size: 15px;
+        margin: 5px 0;
+        font-weight: 300;
+        display: block;
+    }
+    .id-card > p {
+        font-size: 13px;
+        margin: 2px;
+        line-height: 17px;
+    }
+}

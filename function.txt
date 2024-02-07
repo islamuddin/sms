@@ -1,0 +1,15 @@
+// Visitor History
+
+    public function visitor_history($cnic){
+        $this->db->select('visitors.*,D.name as v_dept, V.name as branch');
+        $this->db->from('visitors');
+        $this->db->where('visitors.cnic', $cnic);
+        $this->db->join('department as D','D.id = visitors.dept','left');
+        $this->db->join('department as V','V.id = visitors.sub_branch','left');
+        $this->db->order_by('pass_no', 'DESC');
+        $data = $this->db->get()->result();
+        return $data;
+    }
+
+
+    // update visitor 
