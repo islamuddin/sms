@@ -28,7 +28,7 @@
 
                         <!-- Display statistics for male records -->
                         <div class="col-sm-4 pr-sm-2 statistics-grid">
-                            <a href="<?php echo base_url('records/male'); ?>">
+                            <a href="<?php echo base_url('messages/all'); ?>">
                                 <div class="card card_border border-primary-top p-3" id="blue">
                                     <i class="lnr lnr-envelope"> </i>
                                     <h3 class="text-light number"><?= $total ?></h3>
@@ -42,7 +42,7 @@
 
                         <!-- Display statistics for female records -->
                         <div class="col-sm-4 pr-sm-2 statistics-grid">
-                            <a href="<?php echo base_url('records/female'); ?>">
+                            <a href="<?php echo base_url('messages/all'); ?>">
                                 <div class="card card_border border-primary-top p-3" id="blue">
                                     <i class="lnr lnr-envelope"> </i>
                                     <h3 class="text-light number"><?= $total ?></h3>
