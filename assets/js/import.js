@@ -29,10 +29,8 @@ function processCSV() {
                     type: 'POST',
                     url: 'importAction',
                     data: {
-                        vote_no: rowData[0],
-                        cnic_no: rowData[1],
-                        list_code: rowData[2],
-                        polling_name: rowData[3]
+                        name: rowData[0],
+                        contact_no: rowData[1],
                     },
                     success: function(response) {
                         console.log(response);
@@ -52,7 +50,7 @@ function processCSV() {
 
             // Use $.when to execute code when all deferred objects are resolved
             $.when.apply($, ajaxRequests).done(function() {
-                alert(processedRows + ' records imported successfully');
+                alert(processedRows + ' contacts imported successfully');
                 document.querySelector("#process").disabled = false;
                 // todo reload window now
                 // window.location.reload();

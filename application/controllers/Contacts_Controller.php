@@ -94,11 +94,8 @@ class Contacts_Controller extends CI_Controller
 
 	public function importAction(){
 		$data = array(
-			'name' => "",
-			'cnic_no' => $this->input->post('cnic_no'),
-			'vote_no' => $this->input->post('vote_no'),
-			'list_code' => $this->input->post('list_code'),
-			'polling_name' => $this->input->post('polling_name'),
+			'name' => $this->input->post('name'),
+			'cnic_no' => $this->input->post('contact_no')
 		);
 		// todo print above data in echo json_encode to check if data if fine
 		echo json_encode($data);
