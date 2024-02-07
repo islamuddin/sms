@@ -62,7 +62,7 @@
 					<td><input type="checkbox" class="record-checkbox" data-record-id="<?= $record->id ?>"></td>
                 	<td><?= $record->name ?></td>
                     <td><a href="tel:<?= $record->contact_no ?>"><?= $record->contact_no ?></a></td>
-                    <td><a href="<?php echo base_url();?>contacts/view?id=<?= $record->id ?>">20</a></td>
+                    <td><a href="<?php echo base_url();?>contacts/view?id=<?= $record->id ?>">1</a></td>
              
 
                     <td>
