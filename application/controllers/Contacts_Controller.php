@@ -95,10 +95,10 @@ class Contacts_Controller extends CI_Controller
 	public function importAction(){
 		$data = array(
 			'name' => $this->input->post('name'),
-			'cnic_no' => $this->input->post('contact_no')
+			'contact_no' => $this->input->post('contact_no')
 		);
 		// todo print above data in echo json_encode to check if data if fine
-		echo json_encode($data);
+		// echo json_encode($data);
 		// Call the model function to save the record
 		$id = $this->contactsModel->saveRecord($data);
 		// to json api response 
