@@ -36,7 +36,7 @@
 			<textarea name="message" id="message" rows="5" class="form-control" required></textarea>
 		</div>
 
-    <button type="submit" class="btn btn-primary pull-right">Sent Message To All Contacts</button>
+    <button type="submit" class="btn btn-primary pull-right">Send Message To All Contacts</button>
 </form>
 
 </div>
