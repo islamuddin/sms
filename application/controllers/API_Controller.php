@@ -108,7 +108,7 @@ class API_Controller extends CI_Controller
 			if(empty($api_key)){
 				echo json_encode(["error"=>"api_key is required"]); exit;
 			}
-			$project = $this->projectsModel->fetch_record_by_id($api_key);
+			$project = $this->projectsModel->fetch_record_by_api_key($api_key);
 
 			if(empty($project)){
 				echo json_encode(["error"=>"api_key is invalid"]); exit;
