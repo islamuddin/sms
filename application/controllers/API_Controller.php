@@ -12,6 +12,7 @@ class API_Controller extends CI_Controller
 		parent::__construct();
 		$this->load->model('contactsModel');
 		$this->load->model('messagesModel');
+		$this->load->model('projectsModel');
 
 		$this->load->library('form_validation');
 		$this->load->helper('date');
@@ -107,11 +108,11 @@ class API_Controller extends CI_Controller
 			if(empty($api_key)){
 				echo json_encode(["error"=>"api_key is required"]); exit;
 			}
-			if($api_key !== "hrmis3967646"){
-				echo json_encode(["error"=>"api_key is invalid"]); exit;
-			}
+			$project = $this->projectsModel->fetch_record_by_id($api_key);
 
-			
+			if(empty($project)){
+				echo json_encode(["error"=>"api_key is invalid"]); exit;
+			}			
 			$number=$this->input->post("number");
 			
 			if(empty($number)){
@@ -122,18 +123,10 @@ class API_Controller extends CI_Controller
 				// echo json_encode(["otp"=>"644048"]); exit;
 
 				try {
-					$otp=$this->generateOTP();
-					$project="HRMIS";
-					// todo restrict this to only 1 request per day
+					$otp=$this->generateOTP(); // todo limit OTP generation against project & number for 24 hours 
 					// date_default_timezone_set('Asia/Karachi');
 					// $date = date('l, F j');
-					// Check if the request has already been made today
-					// $lastRequestDate = $this->getLastRequestDate(); // Assuming getLastRequestDate() is a function that retrieves the last request date
-					// $currentDate = date('Y-m-d');
-					// if ($lastRequestDate === $currentDate) {
-					//     echo json_encode(["error" => "Only 1 request per day is allowed"]); exit;
-					// }
-					$message="Your one-time password (OTP) for ".$project." login is ".$otp.". This code is valid for 24 hours only. Please don't share this OTP with anyone. If you did not request this code, please ignore this message or contact us for support. Thank you!";
+					$message="Your one-time password (OTP) for ".$project->name." login is ".$otp.". This code is valid for 24 hours only. Please don't share this OTP with anyone. If you did not request this code, please ignore this message or contact us for support. Thank you!";
                     $this->sendSmsNotification($number, $message);
 					echo json_encode(["otp"=>$otp]); exit;
                 } //catch exception

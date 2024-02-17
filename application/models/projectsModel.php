@@ -78,6 +78,18 @@ class projectsModel extends CI_Model
 			return null;
 		}
 	}
+	public function fetch_record_by_api_key($id) {
+		$this->db->select('*');
+		$this->db->from('projects');
+		$this->db->where('api_key', $id);
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			return $query->row();
+		} else {
+			return null;
+		}
+	}
 
 	public function getRecordById($id)
 	{
