@@ -7,6 +7,10 @@ $route['loadChangePass'] = "Dashboard_Controller/loadChangePass"; // view: chang
 $route['logout'] = 'Dashboard_Controller/logout'; // redirect login
 $route['changePassword'] = "Dashboard_Controller/changePassword"; // redirect loadChangePass
 
+// ============== [ api ] ==============
+$route['api/getOTP'] = 'API_Controller/getOTP';
+$route['api/sendMessage'] = 'API_Controller/sendMessage';
+
 // ============== [ contacts ] ==============
 $route['contacts/all'] = 'Contacts_Controller/all';
 $route['contacts/view'] = "Contacts_Controller/view"; 
@@ -20,6 +24,7 @@ $route['contacts/import'] = 'Contacts_Controller/import';
 $route['contacts/importAction'] = 'Contacts_Controller/importAction'; 
 
 // ============== [ message ] ==============
+$route['messages/testsms'] = 'Messages_Controller/testsms'; 
 $route['messages/all'] = 'Messages_Controller/all'; 
 $route['messages/view'] = "Messages_Controller/view";
 $route['messages/send'] = 'Messages_Controller/send'; 

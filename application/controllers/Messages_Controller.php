@@ -13,8 +13,8 @@ class Messages_Controller extends CI_Controller
 		$this->load->model('messagesModel');
 		$this->load->model('contactsModel');
 		$this->load->helper('date');
-
-
+        $this->load->helper(array('form', 'url'));
+		$this->load->library('curl'); 
 
 		$this->load->library('form_validation');
 		// $this->load->helper('url');
@@ -90,9 +90,18 @@ class Messages_Controller extends CI_Controller
 			$contactsArray = $this->contactsModel->getAllContacts();
 
 			foreach ($contactsArray as $contact) {
+				$status = "";
+                try {
+                    $status = $this->sendSmsNotification($contact->contact_no, $this->input->post('message'));
+                } //catch exception
+                catch (Exception $e) {
+                    $status = 'Message: ' . $e->getMessage();
+                }
+
 				$data = [
 					'message_id' => $id,
-					'contact_id' => $contact->id
+					'contact_id' => $contact->id,
+					'status' =>  $status
 				];
 				$this->messagesModel->markMessageAsSent($data);
 			}
@@ -106,6 +115,54 @@ class Messages_Controller extends CI_Controller
 			echo "Error sending message.";
 		}
 	}
+
+	function sendSmsNotification($contact, $msg)
+    {
+        // $msg = "SP testing";
+        // $contact = '03323967646';
+
+        $domain = "https://connect.jazzcmt.com/sendsms_url.html";
+        $login = "?Username=03053275170&Password=Jazz@123";
+        $sender = "&From=SINDHPOLICE";
+        $receiver = "&To=" . urlencode($contact);
+        $message = "&Message=" . urlencode($msg);
+
+        $url   = $domain;
+        $url  .= $login;
+        $url  .= $sender;
+        $url  .= $receiver;
+        $url  .= $message;
+        $urltouse =  $url;
+        // echo $urltouse; die;
+        $response = $this->curl->simple_get($urltouse, false, array(CURLOPT_USERAGENT => true));
+        return $response . ":" . $urltouse;
+        die;
+        return 'pending';
+    }
+
+	function testsms()
+    {
+        $msg = "SP testing";
+        $contact = '03323967646';
+
+        $domain = "https://connect.jazzcmt.com/sendsms_url.html";
+        $login = "?Username=03053275170&Password=Jazz@123";
+        $sender = "&From=SINDHPOLICE";
+        $receiver = "&To=" . urlencode($contact);
+        $message = "&Message=" . urlencode($msg);
+
+        $url   = $domain;
+        $url  .= $login;
+        $url  .= $sender;
+        $url  .= $receiver;
+        $url  .= $message;
+        $urltouse =  $url;
+        // echo $urltouse; die;
+        $response = $this->curl->simple_get($urltouse, false, array(CURLOPT_USERAGENT => true));
+        return $response . ":" . $urltouse;
+        die;
+        return 'pending';
+    }
 	
 
 	public function view() {
