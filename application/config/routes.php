@@ -34,6 +34,18 @@ $route['messages/deleteSelected'] = 'Messages_Controller/deleteSelected';
 $route['messages/import'] = 'Messages_Controller/import'; 
 $route['messages/importAction'] = 'Messages_Controller/importAction'; 
 
+// ============== [ projects ] ==============
+$route['projects/all'] = 'Projects_Controller/all';
+$route['projects/view'] = "Projects_Controller/view"; 
+$route['projects/add'] = 'Projects_Controller/add'; 
+$route['projects/edit'] = "Projects_Controller/edit"; 
+$route['projects/update'] = "Projects_Controller/update"; 
+$route['projects/save'] = 'Projects_Controller/save'; 
+$route['projects/delete'] = 'Projects_Controller/delete';
+$route['projects/deleteSelected'] = 'Projects_Controller/deleteSelected';
+$route['projects/import'] = 'Projects_Controller/import';
+$route['projects/importAction'] = 'Projects_Controller/importAction'; 
+
 
 $route['default_controller'] = 'login';
 $route['404_override'] = '';

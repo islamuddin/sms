@@ -98,6 +98,7 @@
                     </li>
                     <!-- place -->
                     
+                    <li><a href="<?php echo base_url(); ?>projects/all"><i class="lnr lnr-apartment"></i> <span>Projects</span></a>
                     <li><a href="<?php echo base_url(); ?>messages/all"><i class="lnr lnr-envelope"></i> <span>Messages</span></a>
                     <li><a href="<?php echo base_url(); ?>contacts/all"><i class="lnr lnr-phone-handset"></i> <span>Contacts</span></a>
                     <li><a href="<?php // echo base_url('logout') 

@@ -121,13 +121,20 @@ class API_Controller extends CI_Controller
 				// todo add function to count request to see usage of API
 				// echo json_encode(["otp"=>"644048"]); exit;
 
-
 				try {
-					date_default_timezone_set('Asia/Karachi');
-					$date = date('l, F j');
-
-					$otp="644048";
-                    $this->sendSmsNotification($number, "Your HRMIS OTP code for $date is : ".$otp);
+					$otp=$this->generateOTP();
+					$project="HRMIS";
+					// todo restrict this to only 1 request per day
+					// date_default_timezone_set('Asia/Karachi');
+					// $date = date('l, F j');
+					// Check if the request has already been made today
+					// $lastRequestDate = $this->getLastRequestDate(); // Assuming getLastRequestDate() is a function that retrieves the last request date
+					// $currentDate = date('Y-m-d');
+					// if ($lastRequestDate === $currentDate) {
+					//     echo json_encode(["error" => "Only 1 request per day is allowed"]); exit;
+					// }
+					$message="Your one-time password (OTP) for ".$project." login is ".$otp.". This code is valid for 24 hours only. Please don't share this OTP with anyone. If you did not request this code, please ignore this message or contact us for support. Thank you!";
+                    $this->sendSmsNotification($number, $message);
 					echo json_encode(["otp"=>$otp]); exit;
                 } //catch exception
                 catch (Exception $e) {
