@@ -126,7 +126,8 @@ class API_Controller extends CI_Controller
 					$otp=$this->generateOTP(); // todo limit OTP generation against project & number for 24 hours 
 					// date_default_timezone_set('Asia/Karachi');
 					// $date = date('l, F j');
-					$message="Your one-time password (OTP) for ".$project->name." login is ".$otp.". This code is valid for 24 hours only. Please don't share this OTP with anyone. If you did not request this code, please ignore this message or contact us for support. Thank you!";
+					// $message="Your one-time password (OTP) for ".$project->name." login is ".$otp.". This code is valid for 24 hours only. Please don't share this OTP with anyone. If you did not request this code, please ignore this message or contact us for support. Thank you!";
+					$message="Your OTP for ".$project->name." login is ".$otp.". This code is valid for 24 hours only. Please don't share this OTP with anyone. Thank you!";
                     $this->sendSmsNotification($number, $message);
 					echo json_encode(["otp"=>$otp]); exit;
                 } //catch exception
