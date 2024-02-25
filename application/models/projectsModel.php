@@ -43,7 +43,7 @@ class projectsModel extends CI_Model
 	public function getAllRecords() {
 		$this->db->select('p.id,p.name, p.api_key, COUNT(otp.project_id) as otp_count');
 		$this->db->from('projects as p');
-		$this->db->join('otp', 'p.id = otp.project_id', 'inner');
+		$this->db->join('otp', 'p.id = otp.project_id', 'left');
 		$this->db->group_by('otp.project_id');
 	
 		$query = $this->db->get();
