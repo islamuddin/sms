@@ -61,20 +61,6 @@ class Otp_Controller extends CI_Controller
 	}
 
 
-	public function add()
-	{
-
-		// Load data for dropdowns from the database.
-
-		// Load the form view with dropdown data.
-		$this->load->view('include/header', $this->global);
-		$this->load->view('otp/add', []);
-		$this->load->view('include/footer');
-
-		if($this->input->server('REQUEST_METHOD') === 'POST'){
-		}
-
-	}
 
 
 	
@@ -176,14 +162,18 @@ class Otp_Controller extends CI_Controller
 	}
 	
 	public function view() {
-		// var_dump('working');
-		// die;
 		$id=$this->input->get('id');
-		$data['record'] = $this->otpModel->getRecordById($id);	
-		$data['messages'] = $this->messagesModel->messagesByContactId($id);	
-		// echo "<pre>";
-		// print_r($data);
-		// exit;
+		$number=$this->input->get('number');
+
+		if(!empty($id)){
+			$data['type']="id";
+			$data['record'] = $this->otpModel->getRecordById($id);	
+		}
+		if(!empty($number)){
+			$data['type']="number";
+			$data['messages'] = $this->otpModel->messagesByNumber($number);
+		}
+
 
 		$this->load->view('include/header', $this->global);
 		$this->load->view('otp/view', $data);

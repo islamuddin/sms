@@ -12,25 +12,28 @@ class otpModel extends CI_Model
 
     public function saveRecord($data) {
 		// todo check by cnic_no if exists then don't save
-		$contact_no = $data['contact_no'];
-		$this->db->select('*');
-		$this->db->from('otp');
-		$this->db->where('contact_no', $contact_no);
-		$query = $this->db->get();
+		$this->db->insert('otp', $data);
+		return $this->db->insert_id(); // Return the ID of the inserted record
+
+		// $contact_no = $data['contact_no'];
+		// $this->db->select('*');
+		// $this->db->from('otp');
+		// $this->db->where('contact_no', $contact_no);
+		// $query = $this->db->get();
 	
-		if ($query->num_rows() > 0) {
-			// do nothing
-			return 0;
-		}else{
-			$this->db->insert('otp', $data);
-			return $this->db->insert_id(); // Return the ID of the inserted record
-		}
+		// if ($query->num_rows() > 0) {
+		// 	// do nothing
+		// 	return 0;
+		// }else{
+		// 	$this->db->insert('otp', $data);
+		// 	return $this->db->insert_id(); // Return the ID of the inserted record
+		// }
 
 				
     }    
 	public function getAllRecords() {
-		$this->db->select('otp.*');
-	
+		$this->db->select('otp.*, p.name as project_name');
+		$this->db->join('projects p', 'p.id = otp.project_id', 'inner');	
 		$this->db->from('otp');
 		$this->db->group_by('otp.id');
 		// Add more joins and columns as needed
@@ -93,9 +96,22 @@ public function fetch_record_by_id($id) {
 
 public function getRecordById($id)
 {
+    $this->db->select('otp.*, p.name as project_name'); 
+    $this->db->from('otp');
+	$this->db->join('projects p', 'p.id = otp.project_id', 'inner');
+
+    $this->db->where('otp.id', $id);
+
+    $query = $this->db->get();
+    return $query->row();
+}
+
+
+public function getRecordByNumber($number)
+{
     $this->db->select('otp.*,'); 
     $this->db->from('otp');
-    $this->db->where('otp.id', $id);
+    $this->db->where('otp.id', $number);
 
     $query = $this->db->get();
     return $query->row();
@@ -123,6 +139,21 @@ public function deleteSelectedRecords($ids) {
 public function updateRecord($id, $data) {
     $this->db->where('id', $id);
     return $this->db->update('otp', $data);
+}
+
+public function messagesByNumber($number) {
+    $this->db->select('otp.*, p.name as project_name');
+    $this->db->from('otp');
+    $this->db->join('projects p', 'p.id = otp.project_id', 'inner');
+    $this->db->where('otp.number', $number);
+	$this->db->order_by('otp.created_date', 'desc'); 
+    $query = $this->db->get();
+
+    if ($query->num_rows() > 0) {
+        return $query->result();
+    } else {
+        return null;
+    }
 }
 
 

@@ -132,7 +132,7 @@
 					
 					<div class="card">
 						<div class="card-header">
-							<h3><i class="lnr lnr-envelope"></i> Messages Sent</h3>
+							<h3><i class="lnr lnr-envelope"></i> OTPs Sent</h3>
 						</div>
 						<div class="card-body">
 							<div class="timeline">
@@ -141,11 +141,13 @@
 										<div class="timeline-badge"><i class="fa fa-check"></i></div>
 										<div class="timeline-panel">
 											<div class="timeline-heading">
-												<h4 class="timeline-title"><a href="<?php echo base_url(); ?>messages/view?id=<?= $message->id ?>">Message</a></h4>
+												<h4 class="timeline-title"><a href="<?php echo base_url(); ?>projects/view?id=<?= $message->project_id ?>">OTP for <?php echo $message->project_name; ?> login</a></h4>
 												<p><p><small class="text-muted"><?= time_ago($message->created_date) ?></small></p></p>
 											</div>
 											<div class="timeline-body">
-												<p><?= $message->message ?></p>
+												<p>Number: <a href="<?php echo base_url();?>otp/view?number=<?= $message->number ?>"><?= $message->number ?></a></p>
+												<p>Code: <a href="<?php echo base_url(); ?>otp/view?id=<?= $message->id ?>"><?= $message->otp ?></a></p>
+												<p>Message: <?= $message->message ?></p>
 											</div>
 										</div>
 									</div>

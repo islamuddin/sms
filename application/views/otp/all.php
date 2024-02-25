@@ -36,17 +36,17 @@
 		<h2>OTPs</h2>		
 		</span>
 		<span class="pull-right">			
-			<a href="<?php echo base_url();?>otp/add" class="btn btn-primary"> <i class="fa fa-plus"></i> Add</a>
 		</span>
 
     </div>
     <div class="card-body mb-3">
-	<button class="btn btn-danger" id="deleteSelected">Delete Selected</button>
+	<!-- <button class="btn btn-danger" id="deleteSelected">Delete Selected</button> -->
 
     <table id="records-table" class="table table-striped table-bordered">
         <thead>
             <tr>
-			<th><input type="checkbox" id="checkAll"></th>
+			<!-- <th>
+				<input type="checkbox" id="checkAll"></th> -->
                 <th>Project</th>
                 <th>OTP</th>
                 <th>Number</th>
@@ -56,14 +56,14 @@
         <tbody>
             <?php foreach ($records as $record): ?>
                 <tr>
-					<td><input type="checkbox" class="record-checkbox" data-record-id="<?= $record->id ?>"></td>
-                	<td><?= $record->project_id ?></td>
-                    <td><?= $record->otp ?></td>
-                    <td><a href="tel:<?php echo base_url();?>otp/view?id=<?= $record->id ?>"><?= $record->number ?></a></td>
+					<!-- <td><input type="checkbox" class="record-checkbox" data-record-id="<?= $record->id ?>"></td> -->
+                	<td><a href="<?php echo base_url(); ?>projects/view?id=<?= $record->project_id ?>"><?= $record->project_name ?></a></td>
+                    <td><a href="<?php echo base_url();?>otp/view?id=<?= $record->id ?>"><?= $record->otp ?></a></td>
+                    <td><a href="<?php echo base_url();?>otp/view?number=<?= $record->number ?>"><?= $record->number ?></a></td>
              
 
                     <td>
-						<a href="<?php echo base_url();?>otp/view?id=<?= $record->id ?>">View</a> | <a href="<?php echo base_url();?>otp/delete?id=<?= $record->id ?>">Delete</a>
+						<a href="<?php echo base_url();?>otp/view?id=<?= $record->id ?>">View</a>
 					</td> 
                 </tr>
             <?php endforeach; ?>

@@ -96,7 +96,7 @@
 
 
 
-<?php if ($record) : ?>
+<?php if ($type='id' && !empty($record)) : ?>
     <div class="main-content">
         <div class="container-fluid content-top-gap">
             <div class="card">
@@ -118,7 +118,7 @@
 								OTP Detail</th>
                             </tr>
                             <tr>
-                                <td><strong>Project:</strong><br><?= $record->project_id ?></td>
+                                <td><strong>Project:</strong><br><a href="<?= base_url() ?>projects/view?id=<?= $record->project_id ?>"><?= $record->project_name ?></a></td>
                             </tr>
                             <tr>
                                 <td><strong>OTP:</strong><br><?= $record->otp ?></td>
@@ -130,6 +130,9 @@
 							<tr>
                                 <td><strong>Message :</strong><br><?= $record->message ?></td>
                             </tr>
+							<tr>
+								<td><strong>Sent On:</strong><br><?= $record->created_date ?> <small class="text-muted"> (<?= time_ago($record->created_date) ?>)</small></td>
+                            </tr>
                         </tbody>
                     </table>
 					
@@ -139,6 +142,75 @@
             </div>
         </div>
     </div>
+<?php elseif ($type='number' && !empty($messages)) : ?>
+    <div class="main-content">
+        <div class="container-fluid content-top-gap">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Contact Detail 
+						<span class="pull-right">
+							<a onclick="history.back()" class="btn btn-info mr-2 text-light">Go Back</a>
+							<a onclick="window.print();" class="btn btn-info mr-2 text-light">Print</a>
+						</span>
+					</h2>
+                    
+                </div>
+
+	<div class="card-body">
+                    <table class="table ">
+                        <tbody>
+                            <tr>
+                                <th colspan="1">
+								<img class="pr-2" src="<?php echo base_url(); ?>assets/images/logo_in.png" alt="logo-icon" style="    width: 10%;">	
+								OTPs Against Number</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Number:</strong><br><span id="number"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+					<script type="text/javascript">
+							function getQueryParamValue(parameterName) {
+								const queryString = window.location.search;
+								const urlParams = new URLSearchParams(queryString);
+
+								return urlParams.get(parameterName);
+							}
+
+						document.getElementById("number").innerHTML = getQueryParamValue('number');
+					</script>
+					<div class="card">
+						<div class="card-header">
+							<h3><i class="lnr lnr-envelope"></i> OTPs Sent</h3>
+						</div>
+						<div class="card-body">
+							<div class="timeline">
+								<?php if($messages){ foreach ($messages as $message): ?>
+									<div class="timeline-item">
+										<div class="timeline-badge"><i class="fa fa-check"></i></div>
+										<div class="timeline-panel">
+											<div class="timeline-heading">
+												<h4 class="timeline-title"><a href="<?php echo base_url(); ?>projects/view?id=<?= $message->project_id ?>">OTP for <?php echo $message->project_name; ?> login</a></h4>
+												<p><p><small class="text-muted"><?= time_ago($message->created_date) ?></small></p></p>
+											</div>
+											<div class="timeline-body">
+												<p>Number: <a href="<?php echo base_url();?>otp/view?number=<?= $message->number ?>"><?= $message->number ?></a></p>
+												<p>Code: <a href="<?php echo base_url(); ?>otp/view?id=<?= $message->id ?>"><?= $message->otp ?></a></p>
+												<p>Message: <?= $message->message ?></p>
+											</div>
+										</div>
+									</div>
+									<div class="timeline-vertical-line"></div>
+								<?php endforeach; }else{ echo "No message sent"; } ?>
+							</div>
+						</div>
+					</div>
+					<!-- End of Bootstrap Timeline Card -->
+
+                </div>
+				</div>
+        </div>
+    </div>				
 <?php else : ?>
     <div class="main-content">
         <div class="container-fluid content-top-gap">

@@ -140,7 +140,7 @@ class Projects_Controller extends CI_Controller
 		// die;
 		$id=$this->input->get('id');
 		$data['record'] = $this->projectsModel->getRecordById($id);	
-		$data['messages'] = [];	
+		$data['messages'] = $this->projectsModel->messagesByProjectId($id);	
 
 		// echo "<pre>";
 		// print_r($data);

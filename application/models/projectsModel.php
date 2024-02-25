@@ -41,15 +41,17 @@ class projectsModel extends CI_Model
 		return array(); // Return an empty array if no contacts found
 	}
 	public function getAllRecords() {
-		$this->db->select('projects.*');
-		$this->db->from('projects');
-
+		$this->db->select('p.id,p.name, p.api_key, COUNT(otp.project_id) as otp_count');
+		$this->db->from('projects as p');
+		$this->db->join('otp', 'p.id = otp.project_id', 'inner');
+		$this->db->group_by('otp.project_id');
+	
 		$query = $this->db->get();
 		$result = $query->result();
-
-
-		return $result ;
+	
+		return $result;
 	}
+	
 
 	// Get the count of all contacts
 	public function getCountAllProjects() {
@@ -123,6 +125,21 @@ class projectsModel extends CI_Model
 	public function updateRecord($id, $data) {
 		$this->db->where('id', $id);
 		return $this->db->update('projects', $data);
+	}
+
+	public function messagesByProjectId($id) {
+		$this->db->select('otp.*, p.name as project_name');
+		$this->db->from('otp');
+		$this->db->join('projects p', 'p.id = otp.project_id', 'inner');
+		$this->db->where('p.id', $id);
+		$this->db->order_by('otp.created_date', 'desc'); 
+		$query = $this->db->get();
+	
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		} else {
+			return null;
+		}
 	}
 
 

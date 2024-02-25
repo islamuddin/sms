@@ -13,6 +13,7 @@ class API_Controller extends CI_Controller
 		$this->load->model('contactsModel');
 		$this->load->model('messagesModel');
 		$this->load->model('projectsModel');
+		$this->load->model('otpModel');
 
 		$this->load->library('form_validation');
 		$this->load->helper('date');
@@ -129,6 +130,15 @@ class API_Controller extends CI_Controller
 					// $message="Your one-time password (OTP) for ".$project->name." login is ".$otp.". This code is valid for 24 hours only. Please don't share this OTP with anyone. If you did not request this code, please ignore this message or contact us for support. Thank you!";
 					$message="Your OTP for ".$project->name." login is ".$otp.". This code is valid for 24 hours only. Please don't share this OTP with anyone. Thank you!";
                     $this->sendSmsNotification($number, $message);
+					
+					$data = array(
+						'project_id' => $project->id,
+						'otp' => $otp,
+						'message' => $message,
+						'number' => $number,
+					);			
+					$this->otpModel->saveRecord($data);
+						
 					echo json_encode(["otp"=>$otp]); exit;
                 } //catch exception
                 catch (Exception $e) {

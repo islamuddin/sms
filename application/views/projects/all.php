@@ -49,7 +49,7 @@
 			<th><input type="checkbox" id="checkAll"></th>
                 <th>Name</th>
                 <th>API Key</th>
-                <th>✉ Messages Sent</th>
+                <th>✉ OTPs Sent</th>
 
 
 				<th>Action</th> 
@@ -59,9 +59,9 @@
             <?php foreach ($records as $record): ?>
                 <tr>
 					<td><input type="checkbox" class="record-checkbox" data-record-id="<?= $record->id ?>"></td>
-                	<td><?= $record->name ?></td>
+                	<td><a href="<?php echo base_url();?>projects/view?id=<?= $record->id ?>"><?= $record->name ?></a></td>
                     <td><?= $record->api_key ?></td>
-                    <td>-</td>
+                    <td><?= $record->otp_count ?></td>
              
 
                     <td>

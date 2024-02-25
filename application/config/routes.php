@@ -49,7 +49,6 @@ $route['projects/importAction'] = 'Projects_Controll';
 // ============== [ otp log ] ==============
 $route['otp/all'] = 'Otp_Controller/all';
 $route['otp/view'] = "Otp_Controller/view"; 
-$route['otp/add'] = 'Otp_Controller/add'; 
 $route['otp/update'] = "Otp_Controller/update"; 
 $route['otp/save'] = 'Otp_Controller/save'; 
 $route['otp/delete'] = 'Otp_Controller/delete';
