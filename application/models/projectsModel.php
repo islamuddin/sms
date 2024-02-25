@@ -41,16 +41,17 @@ class projectsModel extends CI_Model
 		return array(); // Return an empty array if no contacts found
 	}
 	public function getAllRecords() {
-		$this->db->select('p.id,p.name, p.api_key, COUNT(otp.project_id) as otp_count');
+		$this->db->select('p.id, p.name, p.api_key, COUNT(otp.project_id) as otp_count');
 		$this->db->from('projects as p');
-		$this->db->join('otp', 'p.id = otp.project_id', 'left');
-		$this->db->group_by('otp.project_id');
+		$this->db->join('otp', 'p.id = otp.project_id', 'left'); // Use LEFT JOIN instead of INNER JOIN
+		$this->db->group_by('p.id'); // Group by the primary key of the "projects" table
 	
 		$query = $this->db->get();
 		$result = $query->result();
 	
 		return $result;
 	}
+	
 	
 
 	// Get the count of all contacts
