@@ -49,12 +49,7 @@ $route['projects/importAction'] = 'Projects_Controll';
 // ============== [ otp log ] ==============
 $route['otp/all'] = 'Otp_Controller/all';
 $route['otp/view'] = "Otp_Controller/view"; 
-$route['otp/update'] = "Otp_Controller/update"; 
-$route['otp/save'] = 'Otp_Controller/save'; 
-$route['otp/delete'] = 'Otp_Controller/delete';
-$route['otp/deleteSelected'] = 'Otp_Controller/deleteSelected';
-$route['otp/import'] = 'Otp_Controller/import';
-$route['otp/importAction'] = 'Otp_Controller/importAction'; 
+$route['otp/reports'] = 'Otp_Controller/reports';
 
 $route['default_controller'] = 'login';
 $route['404_override'] = '';
