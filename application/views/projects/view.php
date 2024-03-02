@@ -150,7 +150,8 @@
 												<p><strong>Message</strong>: <?= $message->message ?></p>
 												<p><strong>URL</strong>: <?= $message->url ?></p>
 												<p><strong>Response</strong>: <?= $message->response ?></p>
-											</div>
+												<p><strong>Status</strong>: <?php if($message->status==='1'){ echo "Sent"; }else{ echo "Failed";} ?></p>
+		</div>
 										</div>
 									</div>
 									<div class="timeline-vertical-line"></div>

@@ -25,7 +25,7 @@
 			</div>
 		<?php } ?>
 		<div class="welcome-msg pt-3 pb-4">
-			<h1>Projects OTP Reports</h1>
+			<h1>Project-wise Summary</h1>
 
 		</div>
 
@@ -33,7 +33,7 @@
 <div class="card">
     <div class="card-header">
 		<span class="pull-left">			
-		<h2>Custom Report</h2>		
+		<h2>Project-wise Total Summary</h2>		
 		</span>
 		<span class="pull-right">			
 		</span>
@@ -47,7 +47,7 @@
             <tr>
                 <th>Project</th>
                 <th>OTP Count</th>
-                <th>Number</th>
+                <th>Number Used</th>
             </tr>
         </thead>
         <tbody>

@@ -25,7 +25,7 @@
 			</div>
 		<?php } ?>
 		<div class="welcome-msg pt-3 pb-4">
-			<h1>All OTP Log</h1>
+			<h1>Date-wise Projects Summary</h1>
 
 		</div>
 
@@ -33,7 +33,7 @@
 <div class="card">
     <div class="card-header">
 		<span class="pull-left">			
-		<h2>OTPs</h2>		
+		<h2>Date-wise Summary Report</h2>		
 		</span>
 		<span class="pull-right">			
 		</span>
@@ -45,29 +45,19 @@
     <table id="records-table" class="table table-striped table-bordered">
         <thead>
             <tr>
-			<!-- <th>
-				<input type="checkbox" id="checkAll"></th> -->
+				<th>Date</th>
                 <th>Project</th>
-                <th>OTP</th>
-                <th>Number</th>
-                <th>Status</th>
-                <th>Response</th>
-				<th>Action</th> 
+                <th>OTP Count</th>
+                <th>Number Used</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($records as $record): ?>
                 <tr>
-					<!-- <td><input type="checkbox" class="record-checkbox" data-record-id="<?= $record->id ?>"></td> -->
-                	<td><a href="<?php echo base_url(); ?>projects/view?id=<?= $record->project_id ?>"><?= $record->project_name ?></a></td>
-                    <td><a href="<?php echo base_url();?>otp/view?id=<?= $record->id ?>"><?= $record->otp ?></a></td>
-                    <td><a href="<?php echo base_url();?>otp/view?number=<?= $record->number ?>"><?= $record->number ?></a></td>
-                    <td><?php if($record->status==='1'){ echo "Sent"; }else{ echo "Failed";} ?></td>
-                    <td><?= $record->response ?></td>
-            
-                    <td>
-						<a href="<?php echo base_url();?>otp/view?id=<?= $record->id ?>">View</a>
-					</td> 
+					<td><?= $record->date ?></td>
+                	<td><?= $record->project_name ?></td>
+                    <td><?= $record->otp_sent ?></td>
+                    <td><?= $record->unique_numbers_used ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -78,7 +68,9 @@
 <script>
     $(document).ready(function() {
         $('#records-table').DataTable({
+			order: [],
             dom: 'lBfrtip',
+			
 
                                 buttons: [
                                     'excel', 'pdf', 'print'
@@ -88,7 +80,7 @@
 
                                 'processing': true,
                                 // 'serverSide': true,
-                                'responsive': true,
+                                'responsive': false,
                                 // 'serverMethod': 'post',                               
                                 "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
                                 buttons: [
@@ -190,6 +182,7 @@
                 alert('Please select at least one record to delete.');
             }
         });
+		
 </script>
 
 

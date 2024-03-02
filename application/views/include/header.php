@@ -41,7 +41,20 @@ function activeItem($url, $route){
                     <li class="<?= ($this->uri->uri_string() == 'dashboard') ? 'active' : '' ?>"><a href="<?= base_url(); ?>dashboard"><i class="fa fa-tachometer"></i><span>Dashboard </span></a></li>
                     <li><a href="<?= base_url(); ?>projects/all"><i class="lnr lnr-apartment"></i> <span>Projects</span></a></li>
                     <li><a href="<?= base_url(); ?>otp/all"><i class="lnr lnr-history"></i> <span>OTP Log</span></a></li>
-					<li><a href="<?= base_url(); ?>otp/reports"><i class="lnr lnr-database"></i> <span>OTP Reports</span></a></li>
+					<li class="menu-list <?php activeNav($this->uri->uri_string(), 'otp/summaryReport', 'otp/datewiseReport') ?>">
+                            <a href="#"><i class="lnr lnr-database"></i>
+                                <span>OTP Reports<i class="lnr lnr-chevron-right"></i></span>
+							</a>
+                            <ul class="sub-menu-list">
+
+                                <li class="<?=activeItem($this->uri->uri_string(), 'otp/summaryReport');?>">
+									<a href="<?= base_url(); ?>otp/summaryReport"><i class="lnr lnr-apartment"></i> <span>Project-wise Summary</span></a> 
+								</li>
+                                <li class="<?=activeItem($this->uri->uri_string(), 'otp/datewiseReport');?>">
+									<a href="<?= base_url(); ?>otp/datewiseReport"><i class="lnr lnr-calendar-full"></i> <span>Date-wise Summary</span></a> 
+								</li>
+                            </ul>
+					</li>
 					<li class="menu-list <?php activeNav($this->uri->uri_string(), 'messages/all', 'contacts/all') ?>">
                             <a href="#"><i class="lnr lnr-layers"></i>
                                 <span>Bulk SMS<i class="lnr lnr-chevron-right"></i></span>

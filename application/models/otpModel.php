@@ -157,10 +157,11 @@ public function messagesByNumber($number) {
 }
 
 public function getReportData() {
-	$this->db->select('p.name as project_name, COUNT(otp.project_id) as otp_sent, COUNT(DISTINCT otp.number) as unique_numbers_used');
+    $this->db->select('p.name as project_name, date(otp.created_date) as date, COUNT(otp.project_id) as otp_sent, COUNT(DISTINCT otp.number) as unique_numbers_used');
     $this->db->from('projects as p');
     $this->db->join('otp', 'p.id = otp.project_id', 'inner');
-    $this->db->group_by('p.id');
+    $this->db->group_by('p.id, date(otp.created_date)');
+	$this->db->order_by('date(otp.created_date)', 'desc');
 
     $query = $this->db->get();
     $result = $query->result();

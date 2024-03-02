@@ -89,14 +89,25 @@ class Otp_Controller extends CI_Controller
 		$this->load->view('include/footer');
 	}	
 
-	public function reports() {
+	public function summaryReport() {
 		// Load data for the view
 		$data['records'] = $this->otpModel->getReportData();
 	
 		// Load the view
 		$this->load->view('include/header', $this->global);
-		$this->load->view('otp/reports', $data);
+		$this->load->view('otp/summaryReport', $data);
 		$this->load->view('include/footer');
 	}
+
+	public function datewiseReport() {
+		// Load data for the view
+		$data['records'] = $this->otpModel->getReportData();
+	
+		// Load the view
+		$this->load->view('include/header', $this->global);
+		$this->load->view('otp/datewiseReport', $data);
+		$this->load->view('include/footer');
+	}
+
 
 }

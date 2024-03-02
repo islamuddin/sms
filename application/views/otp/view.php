@@ -137,6 +137,10 @@
                                 <td><strong>Response :</strong><br><?= $record->response ?></td>
                             </tr>
 							<tr>
+                                <td><strong>Status :</strong><br><?php if($record->status==='1'){ echo "Sent"; }else{ echo "Failed";} ?></td>
+                            </tr>
+							
+							<tr>
 								<td><strong>Sent On:</strong><br><?= $record->created_date ?> <small class="text-muted"> (<?= time_ago($record->created_date) ?>)</small></td>
                             </tr>
                         </tbody>
@@ -205,6 +209,7 @@
 												<p><strong>Message:</strong> <?= $message->message ?></p>
 												<p><strong>URL</strong>: <?= $message->url ?></p>
 												<p><strong>Response</strong>: <?= $message->response ?></p>
+												<p><strong>Status</strong>: <?php if($message->status==='1'){ echo "Sent"; }else{ echo "Failed";} ?></p>
 											</div>
 										</div>
 									</div>

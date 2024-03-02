@@ -47,7 +47,9 @@ $route['projects/deleteSelected'] = 'Projects_Controller/deleteSelected';
 // ============== [ otp log ] ==============
 $route['otp/all'] = 'Otp_Controller/all';
 $route['otp/view'] = "Otp_Controller/view"; 
-$route['otp/reports'] = 'Otp_Controller/reports';
+// todo reports
+$route['otp/summaryReport'] = 'Otp_Controller/summaryReport';
+$route['otp/datewiseReport'] = 'Otp_Controller/datewiseReport';
 
 $route['default_controller'] = 'login';
 $route['404_override'] = '';
