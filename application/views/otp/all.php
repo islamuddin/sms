@@ -50,6 +50,7 @@
                 <th>Project</th>
                 <th>OTP</th>
                 <th>Number</th>
+                <th>Response</th>
 				<th>Action</th> 
             </tr>
         </thead>
@@ -60,8 +61,8 @@
                 	<td><a href="<?php echo base_url(); ?>projects/view?id=<?= $record->project_id ?>"><?= $record->project_name ?></a></td>
                     <td><a href="<?php echo base_url();?>otp/view?id=<?= $record->id ?>"><?= $record->otp ?></a></td>
                     <td><a href="<?php echo base_url();?>otp/view?number=<?= $record->number ?>"><?= $record->number ?></a></td>
-             
-
+                    <td><?= $record->response ?></td>
+            
                     <td>
 						<a href="<?php echo base_url();?>otp/view?id=<?= $record->id ?>">View</a>
 					</td> 

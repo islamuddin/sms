@@ -32,26 +32,26 @@ class API_Controller extends CI_Controller
     {
         // $msg = "SP testing";
         // $contact = '03323967646';
+		$urltouse="";
+		try{
+			$domain = "https://connect.jazzcmt.com/sendsms_url.html";
+			$login = "?Username=03053275170&Password=Jazz@123";
+			$sender = "&From=SINDHPOLICE";
+			$receiver = "&To=" . urlencode($contact);
+			$message = "&Message=" . urlencode($msg);
 
-        $domain = "https://connect.jazzcmt.com/sendsms_url.html";
-        $login = "?Username=03053275170&Password=Jazz@123";
-        $sender = "&From=SINDHPOLICE";
-        $receiver = "&To=" . urlencode($contact);
-        $message = "&Message=" . urlencode($msg);
-
-        $url   = $domain;
-        $url  .= $login;
-        $url  .= $sender;
-        $url  .= $receiver;
-        $url  .= $message;
-        $urltouse =  $url;
-        // echo $urltouse; die;
-        $response = $this->curl->simple_get($urltouse, false, array(CURLOPT_USERAGENT => true));
-		//echo json_encode(["message"=>$response ]); exit;
-       return $response . ":" . $urltouse;
-        die;
-        return 'pending';
-    }
+			$url   = $domain;
+			$url  .= $login;
+			$url  .= $sender;
+			$url  .= $receiver;
+			$url  .= $message;
+			$urltouse =  $url;
+			$response = $this->curl->simple_get($urltouse, false, array(CURLOPT_USERAGENT => true));
+			return $urltouse."||".$response;
+		} catch (\Exception $e) {
+			return $urltouse."||".$e->getMessage();
+		}
+	}
 
 	public function sendMessage(){
 		header('Content-Type: application/json');
@@ -129,17 +129,19 @@ class API_Controller extends CI_Controller
 					// $date = date('l, F j');
 					// $message="Your one-time password (OTP) for ".$project->name." login is ".$otp.". This code is valid for 24 hours only. Please don't share this OTP with anyone. If you did not request this code, please ignore this message or contact us for support. Thank you!";
 					$message="Your OTP for ".$project->name." login is ".$otp.". This code is valid for 24 hours only. Please don't share this OTP with anyone. Thank you!";
-                    $this->sendSmsNotification($number, $message);
-					
+                    $response=$this->sendSmsNotification($number, $message);
+					$resArray=explode("||",$response);					
 					$data = array(
 						'project_id' => $project->id,
 						'otp' => $otp,
 						'message' => $message,
-						'number' => $number,
-					);			
+						'number' => $number,						
+						'url' => $resArray[0],
+						'response' => $resArray[1],
+					);
 					$this->otpModel->saveRecord($data);
 						
-					echo json_encode(["otp"=>$otp]); exit;
+					echo json_encode(["otp"=>$otp, 'response'=>$resArray[1]]); exit;
                 } //catch exception
                 catch (Exception $e) {
 					echo json_encode(["error"=> $e->getMessage()]); exit;

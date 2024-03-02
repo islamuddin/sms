@@ -145,9 +145,11 @@
 												<p><p><small class="text-muted"><?= time_ago($message->created_date) ?></small></p></p>
 											</div>
 											<div class="timeline-body">
-												<p>Number: <a href="<?php echo base_url();?>otp/view?number=<?= $message->number ?>"><?= $message->number ?></a></p>
-												<p>Code: <a href="<?php echo base_url(); ?>otp/view?id=<?= $message->id ?>"><?= $message->otp ?></a></p>
-												<p>Message: <?= $message->message ?></p>
+												<p><strong>Number:</strong> <a href="<?php echo base_url();?>otp/view?number=<?= $message->number ?>"><?= $message->number ?></a></p>
+												<p><strong>Code:</strong> <a href="<?php echo base_url(); ?>otp/view?id=<?= $message->id ?>"><?= $message->otp ?></a></p>
+												<p><strong>Message</strong>: <?= $message->message ?></p>
+												<p><strong>URL</strong>: <?= $message->url ?></p>
+												<p><strong>Response</strong>: <?= $message->response ?></p>
 											</div>
 										</div>
 									</div>

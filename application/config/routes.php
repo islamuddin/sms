@@ -43,8 +43,6 @@ $route['projects/update'] = "Projects_Controller/update";
 $route['projects/save'] = 'Projects_Controller/save'; 
 $route['projects/delete'] = 'Projects_Controller/delete';
 $route['projects/deleteSelected'] = 'Projects_Controller/deleteSelected';
-$route['projects/import'] = 'Projects_Controller/import';
-$route['projects/importAction'] = 'Projects_Controll';
 
 // ============== [ otp log ] ==============
 $route['otp/all'] = 'Otp_Controller/all';
