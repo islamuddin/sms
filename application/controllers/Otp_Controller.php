@@ -101,7 +101,7 @@ class Otp_Controller extends CI_Controller
 
 	public function datewiseReport() {
 		// Load data for the view
-		$data['records'] = $this->otpModel->getReportData();
+		$data['records'] = $this->otpModel->getDateWiseData();
 	
 		// Load the view
 		$this->load->view('include/header', $this->global);
