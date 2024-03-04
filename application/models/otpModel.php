@@ -189,5 +189,18 @@ public function getDateWiseData() {
     return $result;
 }
 
+public function getMonthWiseData() {
+    $this->db->select('p.name as project_name, DATE_FORMAT(otp.created_date, "%Y-%m") as month_year, COUNT(otp.project_id) as otp_sent, COUNT(DISTINCT otp.number) as unique_numbers_used');
+    $this->db->from('projects as p');
+    $this->db->join('otp', 'p.id = otp.project_id', 'inner');
+    $this->db->group_by('p.id, month_year');
+    $this->db->order_by('month_year', 'desc');
+
+    $query = $this->db->get();
+    $result = $query->result();
+
+    return $result;
+}
+
 
 }

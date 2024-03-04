@@ -59,7 +59,7 @@ function activeItem($url, $route){
 								</li>
                             </ul>
 					</li>					
-					<li class="menu-list <?php activeNav($this->uri->uri_string(), 'otp/summaryReport', 'otp/datewiseReport') ?>">
+					<li class="menu-list <?php activeNav($this->uri->uri_string(), 'otp/summaryReport', 'otp/datewiseReport', 'otp/monthwiseReport') ?>">
                             <a href="#"><i class="lnr lnr-database"></i>
                                 <span>OTP Reports<i class="lnr lnr-chevron-right"></i></span>
 							</a>
@@ -70,6 +70,9 @@ function activeItem($url, $route){
 								</li>
                                 <li class="<?=activeItem($this->uri->uri_string(), 'otp/datewiseReport');?>">
 									<a href="<?= base_url(); ?>otp/datewiseReport"><i class="lnr lnr-calendar-full"></i> <span>Date-wise Summary</span></a> 
+								</li>
+                                <li class="<?=activeItem($this->uri->uri_string(), 'otp/monthwiseReport');?>">
+									<a href="<?= base_url(); ?>otp/monthwiseReport"><i class="lnr lnr-calendar-full"></i> <span>Month-wise Summary</span></a> 
 								</li>
                             </ul>
 					</li>

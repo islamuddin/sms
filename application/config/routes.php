@@ -50,6 +50,7 @@ $route['otp/view'] = "Otp_Controller/view";
 // todo reports
 $route['otp/summaryReport'] = 'Otp_Controller/summaryReport';
 $route['otp/datewiseReport'] = 'Otp_Controller/datewiseReport';
+$route['otp/monthwiseReport'] = 'Otp_Controller/monthwiseReport';
 
 $route['default_controller'] = 'login';
 $route['404_override'] = '';

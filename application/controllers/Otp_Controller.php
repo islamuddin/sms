@@ -121,5 +121,15 @@ class Otp_Controller extends CI_Controller
 		$this->load->view('include/footer');
 	}
 
+	public function monthwiseReport() {
+		// Load data for the view
+		$data['records'] = $this->otpModel->getMonthWiseData();
+	
+		// Load the view
+		$this->load->view('include/header', $this->global);
+		$this->load->view('otp/monthwiseReport', $data);
+		$this->load->view('include/footer');
+	}
+
 
 }
