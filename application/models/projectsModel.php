@@ -133,6 +133,11 @@ class projectsModel extends CI_Model
 		$this->db->from('otp');
 		$this->db->join('projects p', 'p.id = otp.project_id', 'inner');
 		$this->db->where('p.id', $id);
+		
+		// Filter by date range for yesterday and today
+		$this->db->where('DATE(otp.created_date) >= CURDATE() - INTERVAL 1 DAY');
+		$this->db->where('DATE(otp.created_date) <= CURDATE()');
+	
 		$this->db->order_by('otp.created_date', 'desc'); 
 		$query = $this->db->get();
 	
@@ -142,6 +147,7 @@ class projectsModel extends CI_Model
 			return null;
 		}
 	}
+	
 
 
 }
