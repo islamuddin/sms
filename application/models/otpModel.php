@@ -30,23 +30,31 @@ class otpModel extends CI_Model
 		// }
 
 				
-    }    
-	public function getAllRecords() {
+    }
+
+	public function getAllRecords($filter_type = "all") {
 		$this->db->select('otp.*, p.name as project_name');
-		$this->db->join('projects p', 'p.id = otp.project_id', 'inner');	
+		$this->db->join('projects p', 'p.id = otp.project_id', 'inner');
 		$this->db->from('otp');
-		$this->db->group_by('otp.id');
-		// Add more joins and columns as needed
 	
+		if ($filter_type == "today") {
+			$this->db->where('DATE(otp.created_date)', date('Y-m-d'));
+		} else if ($filter_type == "sent") {
+			$this->db->where('otp.status', 1);
+		} else if ($filter_type == "failed") {
+			$this->db->where('otp.status', 0);
+		}	
+		$this->db->group_by('otp.id');
+		$this->db->order_by('date(otp.created_date)', 'desc');
 		$query = $this->db->get();
-		// echo $this->db->last_query(); exit;
 	
 		if ($query->num_rows() > 0) {
 			return $query->result();
 		}
 	
-		return array(); // Return an empty array if no otp found
+		return array(); // Return an empty array if no OTP found
 	}
+	
 	
 
 	public function getAllContacts() {

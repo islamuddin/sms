@@ -61,9 +61,21 @@ class Otp_Controller extends CI_Controller
 	}
 
 	public function all() {
-		// Load data for the view
-		$data['records'] = $this->otpModel->getAllRecords();
+		date_default_timezone_set('Asia/Karachi');
+
+		// todo filter flag
+		$type=$this->input->get("type");
+		$sent=$this->input->get("sent");
+		$failed=$this->input->get("failed");
 	
+		$data['records']="";
+		if(!empty($type)){
+			$data['records'] = $this->otpModel->getAllRecords($type);
+		}else{
+			$data['records'] = $this->otpModel->getAllRecords();
+		}
+	
+		// Load data for the view
 		// Load the view
 		$this->load->view('include/header', $this->global);
 		$this->load->view('otp/all', $data);
