@@ -102,8 +102,7 @@ class API_Controller extends CI_Controller
 
 	public function getOTP(){
 		header('Content-Type: application/json');
-		// $clientIP = $_SERVER['REMOTE_ADDR'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'];
-		$clientIP ="103.74.22.61";
+		$clientIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
 
 		if(strlen($clientIP) > 3){			
 			$ipDetails = $this->otpModel->fetchByIP($clientIP);
