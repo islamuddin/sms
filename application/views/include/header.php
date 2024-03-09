@@ -57,6 +57,9 @@ function activeItem($url, $route){
                                 <li class="<?=activeItem($this->uri->uri_string(), 'otp/all?type=failed');?>">
 									<a href="<?= base_url(); ?>otp/all?type=failed"><i class="lnr lnr-cross-circle"></i> <span>Failed</span></a> 
 								</li>
+                                <li class="<?=activeItem($this->uri->uri_string(), 'otp/all?type=failed');?>">
+									<a href="<?= base_url(); ?>otp/invalidRequests"><i class="lnr lnr-cross-circle"></i> <span>Invalid Requests</span></a> 
+								</li>
                             </ul>
 					</li>					
 					<li class="menu-list <?php activeNav($this->uri->uri_string(), 'otp/summaryReport', 'otp/datewiseReport', 'otp/monthwiseReport') ?>">

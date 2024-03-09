@@ -60,6 +60,19 @@ class otpModel extends CI_Model
 		return array(); // Return an empty array if no OTP found
 	}
 	
+
+	public function invalidRequests() {
+		$this->db->select('failedrequests.*');
+		$this->db->from('failedrequests');
+		$this->db->order_by('date(failedrequests.created_date)', 'desc');
+		$query = $this->db->get();
+	
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		}
+	
+		return array(); // Return an empty array if no OTP found
+	}
 	
 
 	public function getAllContacts() {
