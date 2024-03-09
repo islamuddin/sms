@@ -37,6 +37,26 @@ class otpModel extends CI_Model
 		return $this->db->insert_id();
     }
 
+	public function saveIpLocation($data) {
+		$this->db->insert('iplocations', $data);
+		return $this->db->insert_id();
+    }
+
+	public function fetchByIP($ip) {
+		$this->db->select('*');
+		$this->db->from('iplocations');
+		$this->db->where('ip', $ip);
+		$query = $this->db->get();
+	
+		if ($query->num_rows() > 0) {
+			return $query->row();
+		} else {
+			return null;
+		}
+	}
+	
+
+
 	public function getAllRecords($filter_type = "all") {
 		$this->db->select('otp.*, p.name as project_name');
 		$this->db->join('projects p', 'p.id = otp.project_id', 'inner');
@@ -65,6 +85,20 @@ class otpModel extends CI_Model
 		$this->db->select('failedrequests.*');
 		$this->db->from('failedrequests');
 		$this->db->order_by('date(failedrequests.created_date)', 'desc');
+		$query = $this->db->get();
+	
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		}
+	
+		return array(); // Return an empty array if no OTP found
+	}
+	
+
+	public function iplocations() {
+		$this->db->select('iplocations.*');
+		$this->db->from('iplocations');
+		$this->db->order_by('date(iplocations.created_date)', 'desc');
 		$query = $this->db->get();
 	
 		if ($query->num_rows() > 0) {

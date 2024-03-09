@@ -102,7 +102,23 @@ class API_Controller extends CI_Controller
 
 	public function getOTP(){
 		header('Content-Type: application/json');
-		$clientIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+		// $clientIP = $_SERVER['REMOTE_ADDR'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'];
+		$clientIP ="103.74.22.61";
+
+		if(strlen($clientIP) > 3){			
+			$ipDetails = $this->otpModel->fetchByIP($clientIP);
+			if(empty($ipDetails)){
+				$apiKey = '90a791233dc8bc';
+				$apiUrl = "http://ipinfo.io/{$clientIP}?token={$apiKey}";
+				$ch = curl_init($apiUrl);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				$response = curl_exec($ch);
+				curl_close($ch);
+				$data = json_decode($response, true);
+				$this->otpModel->saveIpLocation($data);
+			}
+		}
+
 		if($this->input->server('REQUEST_METHOD') === 'POST'){
 	
 			// echo "<pre>"; print_r($this->input->post()); exit;

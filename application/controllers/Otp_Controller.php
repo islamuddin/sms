@@ -98,6 +98,24 @@ class Otp_Controller extends CI_Controller
 		$this->load->view('otp/invalidRequests', $data);
 		$this->load->view('include/footer');
 	}
+
+	public function iplocations() {
+		date_default_timezone_set('Asia/Karachi');
+
+		// todo filter flag
+		$type=$this->input->get("type");
+		$sent=$this->input->get("sent");
+		$failed=$this->input->get("failed");
+	
+		$data['records'] = $this->otpModel->iplocations($type);
+	
+		// Load data for the view
+		// Load the view
+		$this->load->view('include/header', $this->global);
+		$this->load->view('otp/iplocations', $data);
+		$this->load->view('include/footer');
+	}
+
 	public function view() {
 		$id=$this->input->get('id');
 		$number=$this->input->get('number');
