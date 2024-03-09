@@ -83,7 +83,8 @@ class Projects_Controller extends CI_Controller
 		// Handle form submission and save data to the 'projects' table.
 		$data = array(
 			'name' => $this->input->post('name'),
-			'api_key' => $this->input->post('api_key')
+			'api_key' => $this->input->post('api_key'),
+			'mask' => $this->input->post('mask')
 		);
 
 		// Call the model function to save the record
@@ -112,7 +113,8 @@ class Projects_Controller extends CI_Controller
 		if($this->input->server('REQUEST_METHOD') === 'POST'){
 			$data = array(
 				'name' => $this->input->post('name'),
-				'api_key' => $this->input->post('api_key')
+				'api_key' => $this->input->post('api_key'),
+				'mask' => $this->input->post('mask')
 				);
 		
 			$id = $this->input->post('id');

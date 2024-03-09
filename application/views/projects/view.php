@@ -125,6 +125,9 @@
                                 <td><strong>API Key:</strong><br><?= $record->api_key ?></td>
                             </tr>
                             <tr>
+                                <td><strong>Mask:</strong><br><?= $record->mask ?></td>
+                            </tr>
+                            <tr>
                                 <td><strong>API Setup For Developers To Receive OTP:</strong><br><li>POST: <?php echo base_url(); ?>api/getOTP </li><li>FORM Data: api_key: <?= $record->api_key ?>, number:< OTP User Mobile Number Here ></li></td>
                             </tr>
                         </tbody>

@@ -32,6 +32,11 @@ class otpModel extends CI_Model
 				
     }
 
+	public function failedRequest($data) {
+		$this->db->insert('failedRequests', $data);
+		return $this->db->insert_id();
+    }
+
 	public function getAllRecords($filter_type = "all") {
 		$this->db->select('otp.*, p.name as project_name');
 		$this->db->join('projects p', 'p.id = otp.project_id', 'inner');
@@ -201,6 +206,8 @@ public function getMonthWiseData() {
 
     return $result;
 }
+
+
 
 
 }
