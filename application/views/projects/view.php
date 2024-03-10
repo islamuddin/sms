@@ -154,6 +154,7 @@
 												<p><strong>URL</strong>: <?= $message->url ?></p>
 												<p><strong>Response</strong>: <?= $message->response ?></p>
 												<p><strong>Status</strong>: <?php if($message->status==='1'){ echo "Sent"; }else{ echo "Failed";} ?></p>
+												<p><strong>IP</strong>: <?= $message->ip ?></p>
 		</div>
 										</div>
 									</div>

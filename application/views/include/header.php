@@ -40,13 +40,13 @@ function activeItem($url, $route){
                 <ul class="nav nav-pills nav-stacked custom-nav no-print">
                     <li class="<?= ($this->uri->uri_string() == 'dashboard') ? 'active' : '' ?>"><a href="<?= base_url(); ?>dashboard"><i class="fa fa-tachometer"></i><span>Dashboard </span></a></li>
                     <li><a href="<?= base_url(); ?>projects/all"><i class="lnr lnr-apartment"></i> <span>Projects</span></a></li>
-					<li class="menu-list <?php activeNav($this->uri->uri_string(), 'otp/all', 'otp/today','otp/sent','otp/failed') ?>">
+					<li class="menu-list <?php activeNav($this->uri->uri_string(), 'otp/all?type=all', 'otp/all?type=today', 'otp/all?type=sent') ?>">
                             <a href="#"><i class="lnr lnr-history"></i>
                                 <span>OTP Log<i class="lnr lnr-chevron-right"></i></span>
 							</a>
                             <ul class="sub-menu-list">
-                                <li class="<?=activeItem($this->uri->uri_string(), 'otp/all');?>">
-									<a href="<?= base_url(); ?>otp/all"><i class="lnr lnr-list"></i> <span>All</span></a> 
+                                <li class="<?=activeItem($this->uri->uri_string(), 'otp/all?type=all');?>">
+									<a href="<?= base_url(); ?>otp/all?type=all"><i class="lnr lnr-list"></i> <span>All</span></a> 
 								</li>
                                 <li class="<?=activeItem($this->uri->uri_string(), 'otp/all?type=today');?>">
 									<a href="<?= base_url(); ?>otp/all?type=today"><i class="lnr lnr-clock"></i> <span>Today</span></a> 
