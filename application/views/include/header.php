@@ -10,9 +10,12 @@
     <link href="<?= base_url() ?>assets/normalize-css/normalize.css" rel="stylesheet" media="print">
     <link rel="stylesheet" href="<?= base_url() ?>assets/DataTables/css/jquery.dataTables.min.css">
     <link href="<?= base_url() ?>assets/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    
     <link href="//fonts.googleapis.com/css?family=Nunito:300,400,600,700,800,900&display=swap" rel="stylesheet">
     <script src="<?= base_url() ?>assets/js/jquery-3.3.1.min.js"></script>
     <script src="<?= base_url() ?>assets/js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/jquery.ui.datepicker.css">
+    <link rel="stylesheet" href="https://vms.sindhpolice.gov.pk/assets/css/jquery.ui.datepicker.css">
     <style type="text/css" media="print">
         @page { size: landscape; }
     </style>

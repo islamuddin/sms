@@ -130,6 +130,24 @@ class Otp_Controller extends CI_Controller
 		$this->load->view('otp/monthwiseReport', $data);
 		$this->load->view('include/footer');
 	}
+public function all_otps_ajax(){
+	 // POST data
+	 $postData = $this->input->post();
+	 
+	//  $user_role = $this->session->userdata('role');
+	 // var_dump($user_role);
+	 // die;
+
+	 // Get data
+	 
+		 $data = $this->otpModel->get_allotps($postData);
+	 
+	//  var_dump($data);
+	//  die;
+
+	 echo json_encode($data);
+
+}
 
 
 }
