@@ -32,6 +32,31 @@ class otpModel extends CI_Model
 				
     }
 
+	public function failedRequest($data) {
+		$this->db->insert('failedRequests', $data);
+		return $this->db->insert_id();
+    }
+
+	public function saveIpLocation($data) {
+		$this->db->insert('iplocations', $data);
+		return $this->db->insert_id();
+    }
+
+	public function fetchByIP($ip) {
+		$this->db->select('*');
+		$this->db->from('iplocations');
+		$this->db->where('ip', $ip);
+		$query = $this->db->get();
+	
+		if ($query->num_rows() > 0) {
+			return $query->row();
+		} else {
+			return null;
+		}
+	}
+	
+
+
 	public function getAllRecords($filter_type = "all") {
 		$this->db->select('otp.*, p.name as project_name');
 		$this->db->join('projects p', 'p.id = otp.project_id', 'inner');
@@ -55,6 +80,33 @@ class otpModel extends CI_Model
 		return array(); // Return an empty array if no OTP found
 	}
 	
+
+	public function invalidRequests() {
+		$this->db->select('failedrequests.*');
+		$this->db->from('failedrequests');
+		$this->db->order_by('date(failedrequests.created_date)', 'desc');
+		$query = $this->db->get();
+	
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		}
+	
+		return array(); // Return an empty array if no OTP found
+	}
+	
+
+	public function iplocations() {
+		$this->db->select('iplocations.*');
+		$this->db->from('iplocations');
+		$this->db->order_by('date(iplocations.created_date)', 'desc');
+		$query = $this->db->get();
+	
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		}
+	
+		return array(); // Return an empty array if no OTP found
+	}
 	
 
 	public function getAllContacts() {
@@ -397,8 +449,9 @@ public function get_allVisitors($postData = null)
 
         return $response;
     }
-    public function get_allotps($postData = null,$filter_type = "all")
+    public function get_allotps($postData = null)
     {
+       
 
         $response = array();
 
@@ -428,7 +481,10 @@ public function get_allVisitors($postData = null)
         // // $searchdateto = date("Y-m-d",strtotime($to));
         $searchdateto = $postData['searchdateto'];
 
-        // $searchname = $postData['searchname'];
+        // $type = $postData['type'];
+        $type = $postData['url'];
+        // var_dump($url);
+        // die;
 
         ## Search
         $search_arr = array();
@@ -475,7 +531,7 @@ public function get_allVisitors($postData = null)
         //     $search_arr[] = " visitors.floor like '%" . $searchfloor . "%' ";
         // }
         if ($searchdatefrom != '' && $searchdateto != '') {
-            $search_arr[] = " date(visitors.added_date)  BETWEEN '$searchdatefrom'  AND  '$searchdateto' ";
+            $search_arr[] = " date(otp.created_date)  BETWEEN '$searchdatefrom'  AND  '$searchdateto' ";
             // $search_arr[] = " date(added_date)  BETWEEN date('Y-m-d', strtotime(date($searchdatefrom))  AND date('Y-m-d', strtotime(date($searchdateto)) ";
         }
 
@@ -488,11 +544,11 @@ public function get_allVisitors($postData = null)
         $this->db->join('projects p', 'p.id = otp.project_id', 'inner');
 	
 	
-		if ($filter_type == "today") {
+		if ($type == "today") {
 			$this->db->where('DATE(otp.created_date)', date('Y-m-d'));
-		} else if ($filter_type == "sent") {
+		} else if ($type == "sent") {
 			$this->db->where('otp.status', 1);
-		} else if ($filter_type == "failed") {
+		} else if ($type == "failed") {
 			$this->db->where('otp.status', 0);
 		}	
 		// $this->db->group_by('otp.id');
@@ -505,11 +561,11 @@ public function get_allVisitors($postData = null)
 		$this->db->join('projects p', 'p.id = otp.project_id', 'inner');
 	
 	
-		if ($filter_type == "today") {
+		if ($type == "today") {
 			$this->db->where('DATE(otp.created_date)', date('Y-m-d'));
-		} else if ($filter_type == "sent") {
+		} else if ($type == "sent") {
 			$this->db->where('otp.status', 1);
-		} else if ($filter_type == "failed") {
+		} else if ($type == "failed") {
 			$this->db->where('otp.status', 0);
 		}	
 		// $this->db->group_by('otp.id');
@@ -525,11 +581,11 @@ public function get_allVisitors($postData = null)
 		$this->db->join('projects p', 'p.id = otp.project_id', 'inner');
 
 	
-		if ($filter_type == "today") {
+		if ($type == "today") {
 			$this->db->where('DATE(otp.created_date)', date('Y-m-d'));
-		} else if ($filter_type == "sent") {
+		} else if ($type == "sent") {
 			$this->db->where('otp.status', 1);
-		} else if ($filter_type == "failed") {
+		} else if ($type == "failed") {
 			$this->db->where('otp.status', 0);
 		}	
 		$this->db->group_by('otp.id');
@@ -562,14 +618,15 @@ public function get_allVisitors($postData = null)
                 "created_date" => $record->created_date,
                 "project_name" => $record->project_name,
                 "otp" => $record->otp,
+                "ip" => $record->ip,
                 "number" => $record->number,
                 "created_date" => $record->created_date,
                 "message" => $record->message,
                
-                "status" => $record->status,
+                "status" => ($record->status == 1) ? 'sent' : 'failed',
                 "response" => $record->response,
                 
-                "actions" => '<a href="' . base_url() . 'Visitor_Controller/view_pass/' . $record->id . '"><i class="fa fa-id-badge"></i></a><a class="btn_edit" href="' . base_url() . 'Visitor_Controller/update_visitor/' . $record->id . '"><span class="fa fa-pencil"></span> </a>
+                "actions" => '<a href="' . base_url() . 'otp/view?id=' . $record->id . '">View </a> 
                 ',
             );
 
@@ -587,5 +644,7 @@ public function get_allVisitors($postData = null)
 
         return $response;
     }
+
+
 
 }

@@ -106,10 +106,8 @@ function time_ago($timestamp)
                                 //     echo "<option value='" . $flr . "'>" . $flr . "</option>";
                                 // }
                                 ?>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
+                                <option value="0">Failed</option>
+                                <option value="1">Sent</option>
                             </select>
 
                         </div>
@@ -144,7 +142,7 @@ function time_ago($timestamp)
                        
                         <div class="col-md-3 mb-2">
                             <!-- Name -->
-                            <input type="text" id="searchcontact_no" class="form-control input-style" placeholder="Contact no" data-inputmask="'mask': '9999-9999999'" maxlenth="12">
+                            <input type="text" id="searchcontact_no" class="form-control input-style" placeholder="Contact no" data-inputmask="'mask': '99999999999'" maxlenth="11">
                         </div>
 
 
@@ -154,12 +152,13 @@ function time_ago($timestamp)
                     </div>
                 <!-- <button class="btn btn-danger" id="deleteSelected">Delete Selected</button> -->
 
-                <table id="records-table" class="table table-striped table-bordered">
+                <table id="records-table" class="table table-striped table-bordered ">
                     <thead>
                         <tr>
                             <th>Project</th>
                             <th>OTP</th>
                             <th>Number</th>
+                            <th>IP</th>
                             <th>Sent On</th>
                             <th>Status</th>
                             <th>Response</th>
@@ -173,6 +172,10 @@ function time_ago($timestamp)
         </div>
         <script>
             $(document).ready(function() {
+                var currentUrl = window.location.href;
+                var urlParams = new URLSearchParams(currentUrl.split('?')[1]);
+                 var typeValue = urlParams.get('type');
+
                 var userDataTable = $('#records-table').DataTable({
                     dom: 'lBfrtip',
 
@@ -227,7 +230,7 @@ function time_ago($timestamp)
                                         }
                                     }
                                 },
-                                columns: [0, 1, 2, 3, 4, 5,6,  ]
+                                columns: [0, 1, 2, 3, 4, 5, ]
                             }
                         },
 
@@ -235,7 +238,7 @@ function time_ago($timestamp)
                             extend: 'pdfHtml5',
                             title: 'All Visitors - exported:<?php echo date("m-d-Y"); ?> | <?php echo $pageTitle ?> <br><?php echo $branch ?>',
                             exportOptions: {
-                                columns: [0, 1, 2, 3, 4, 5, 6,]
+                                columns: [0, 1, 2, 3, 4, 5,]
 
                             },
                             // exportOrientation: "landscape",
@@ -247,7 +250,7 @@ function time_ago($timestamp)
                             title: '<i class="text-center pull-left fa fa-id-badge fainfo" style="margin-top:10px; "  > All Visitors  Dated: <?php echo date("m-d-Y"); ?>   <?php // echo date("m-d-Y"); 
                                                                                                                                                                             ?> | <?php echo $pageTitle ?> <br><?php echo $branch ?></i>  <img class="pull-right" style="width:100px;position:relative; margin-bottom:5px;" src="<?php echo base_url() ?>assets/images/print_logo.png" alt="--"/><span ></span>',
                             exportOptions: {
-                                columns: [0, 1, 2, 3, 4, 5,6,]
+                                columns: [0, 1, 2, 3, 4, 5,]
                             },
                             exportOrientation: "landscape",
                         },
@@ -271,6 +274,9 @@ function time_ago($timestamp)
                             data.searchfloor = $('#searchfloor').val();
                             data.searchdatefrom = $('#searchdatefrom').val();
                             data.searchdateto = $('#searchdateto').val();
+
+                            data.type = 'all';
+                            data.url= typeValue;
                         }
 
 
@@ -289,17 +295,20 @@ function time_ago($timestamp)
                             data: 'number'
                         },
                         {
+                            data: 'ip'
+                        },
+                        {
                             data: 'created_date'
                         },
                         {
-                            data: 'message'
+                            data: 'status'
                         },
                         {
                             data: 'response'
                         },
-                        {
-                            data: 'response'
-                        },
+                        //{
+                        //    data: 'response'
+                        //},
                                               
                         {
                             data: 'actions'
@@ -309,7 +318,7 @@ function time_ago($timestamp)
                     ]
                 });
 
-                $('#range_id,#place_id,#searchdept,#searchsubb,#searchpurpose,#searchfloor,#searchdatefrom,#searchdateto').change(function() {
+                $('#searchstatus,#place_id,#searchdept,#searchsubb,#searchpurpose,#searchfloor,#searchdatefrom,#searchdateto').change(function() {
                     userDataTable.draw();
 
                     $('#report').text($('#searchdept').val());

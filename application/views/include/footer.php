@@ -134,7 +134,7 @@
 
 
 
-<!-- <script src="<?php echo base_url() ?>assets/js/jquery-ui.min.js" integrity="sha256-UezNdLBLZaG/YoRcr48I68gr8pb5gyTBM+di5P8p6t8=" crossorigin="anonymous"></script> -->
+<script src="<?php echo base_url() ?>assets/js/jquery-ui.min.js"></script>
 
 <!-- ======//== -->
 
@@ -147,12 +147,12 @@
 	// });
 
 	// $('.date-input').datetimepicker({
-		/*
+		
 	$('.date-input').datepicker({
 		// format : "YYYY-MM-DD"
 		// format : "yyyy-mm-dd"
 		dateFormat: 'yy-mm-dd',
-	});*/
+	});
 
 	/* Create Repeater */
 	$("#repeater").createRepeater({

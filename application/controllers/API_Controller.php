@@ -28,13 +28,13 @@ class API_Controller extends CI_Controller
 	}
 
 
-	function sendSmsNotification($contact, $msg)
+	function sendSmsNotification($contact, $msg, $mask="SINDHPOLICE")
     {
         // $msg = "SP testing";
         // $contact = '03323967646';
 		$urltouse="";
 		try{
-			$urltouse =  'https://connect.jazzcmt.com/sendsms_url.html?Username=03053275170&Password=Jazz%40123&From=SINDHPOLICE&To='.urlencode($contact).'&Message='.urlencode($msg);
+			$urltouse =  'https://connect.jazzcmt.com/sendsms_url.html?Username=03053275170&Password=Jazz%40123&From='.$mask.'&To='.urlencode($contact).'&Message='.urlencode($msg);
 			$res="";
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $urltouse);
@@ -102,23 +102,65 @@ class API_Controller extends CI_Controller
 
 	public function getOTP(){
 		header('Content-Type: application/json');
+		$clientIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+
+		if(strlen($clientIP) > 3){			
+			$ipDetails = $this->otpModel->fetchByIP($clientIP);
+			if(empty($ipDetails)){
+				$apiKey = '90a791233dc8bc';
+				$apiUrl = "http://ipinfo.io/{$clientIP}?token={$apiKey}";
+				$ch = curl_init($apiUrl);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				$response = curl_exec($ch);
+				curl_close($ch);
+				$data = json_decode($response, true);
+				$this->otpModel->saveIpLocation($data);
+			}
+		}
+
 		if($this->input->server('REQUEST_METHOD') === 'POST'){
 	
 			// echo "<pre>"; print_r($this->input->post()); exit;
 
 			$api_key=$this->input->post("api_key");
 			if(empty($api_key)){
-				echo json_encode(["error"=>"api_key is required"]); exit;
+				$data = array(
+					'response' => "API key is required",
+					'ip' => $clientIP
+				);
+				$this->otpModel->failedRequest($data);
+				echo json_encode(["status"=>'failed',"response"=> 'API key is required']); exit;
 			}
 			$project = $this->projectsModel->fetch_record_by_api_key($api_key);
 
 			if(empty($project)){
-				echo json_encode(["error"=>"api_key is invalid"]); exit;
-			}			
+				$data = array(
+					'api_key' => $api_key,
+					'response' => "API key is invalid",
+					'ip' => $clientIP
+				);
+				$this->otpModel->failedRequest($data);
+				echo json_encode(["status"=>'failed',"response"=> 'API key is invalid']); exit;
+			}
 			$number=$this->input->post("number");
 			
 			if(empty($number)){
-				echo json_encode(["error"=>"number is required"]); exit;
+				$data = array(
+					'api_key' => $api_key,
+					'response' => "Number is required",
+					'ip' => $clientIP
+				);
+				$this->otpModel->failedRequest($data);
+				echo json_encode(["status"=>'failed',"response"=> 'Number is required']); exit;
+			}else if(strlen($number) < 10 || strlen($number) > 14){
+				$data = array(
+					'number' => $number,
+					'api_key' => $api_key,
+					'response' => "Number length is invalid",
+					'ip' => $clientIP
+				);
+				$this->otpModel->failedRequest($data);
+				echo json_encode(["status"=>'failed',"response"=> 'Number length is invalid']); exit;
 			}
 			else{
 				// todo add function to count request to see usage of API
@@ -130,7 +172,7 @@ class API_Controller extends CI_Controller
 					// $date = date('l, F j');
 					// $message="Your one-time password (OTP) for ".$project->name." login is ".$otp.". This code is valid for 24 hours only. Please don't share this OTP with anyone. If you did not request this code, please ignore this message or contact us for support. Thank you!";
 					$message="Your OTP for ".$project->name." login is ".$otp.". This code is valid for 24 hours only. Please don't share this OTP with anyone. Thank you!";
-                    $response=$this->sendSmsNotification($number, $message);
+                    $response=$this->sendSmsNotification($number, $message, $project->mask);
 					$resArray=explode("||",$response);
 					$data = array(
 						'project_id' => $project->id,
@@ -140,6 +182,7 @@ class API_Controller extends CI_Controller
 						'url' => $resArray[0],
 						'response' => $resArray[1],
 						'status' => ($resArray[1]==='Message Sent Successfully!')? 1:0,
+						'ip' => $clientIP
 					);
 					$this->otpModel->saveRecord($data);
 
