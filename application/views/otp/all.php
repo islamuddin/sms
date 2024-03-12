@@ -158,6 +158,7 @@ function time_ago($timestamp)
                             <th>Project</th>
                             <th>OTP</th>
                             <th>Number</th>
+                            <th>IP</th>
                             <th>Sent On</th>
                             <th>Status</th>
                             <th>Response</th>
@@ -292,6 +293,9 @@ function time_ago($timestamp)
                         },
                         {
                             data: 'number'
+                        },
+                        {
+                            data: 'ip'
                         },
                         {
                             data: 'created_date'

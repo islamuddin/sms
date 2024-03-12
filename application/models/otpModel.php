@@ -566,6 +566,7 @@ public function get_allVisitors($postData = null)
                 "created_date" => $record->created_date,
                 "project_name" => $record->project_name,
                 "otp" => $record->otp,
+                "ip" => $record->ip,
                 "number" => $record->number,
                 "created_date" => $record->created_date,
                 "message" => $record->message,
