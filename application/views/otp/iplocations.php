@@ -1,3 +1,58 @@
+<?php
+		function time_ago($timestamp)
+		{
+			$time_ago = strtotime($timestamp);
+			$current_time = time();
+			$time_difference = $current_time - $time_ago;
+			$seconds = $time_difference;
+			$minutes      = round($seconds / 60);           // value 60 is seconds
+			$hours        = round($seconds / 3600);         // value 3600 is 60 minutes * 60 sec
+			$days          = round($seconds / 86400);        // value 86400 is 24 hours * 60 minutes * 60 sec
+			$weeks         = round($seconds / 604800);       // value 604800 is 7 days * 24 hours * 60 minutes * 60 sec
+			$months       = round($seconds / 2629440);      // value 2629440 is ((365+365+365+365+366)/5/12) days * 24 hours * 60 minutes * 60 sec
+			$years          = round($seconds / 31553280);     // value 31553280 is ((365+365+365+365+366)/5) days * 24 hours * 60 minutes * 60 sec
+
+			if ($seconds <= 60) {
+				return "Few seconds ago";
+			} else if ($minutes <= 60) {
+				if ($minutes == 1) {
+					return "1 minute ago";
+				} else {
+					return "$minutes minutes ago";
+				}
+			} else if ($hours <= 24) {
+				if ($hours == 1) {
+					return "1 hour ago";
+				} else {
+					return "$hours hours ago";
+				}
+			} else if ($days <= 7) {
+				if ($days == 1) {
+					return "yesterday";
+				} else {
+					return "$days days ago";
+				}
+			} else if ($weeks <= 4.3) {  // 4.3 == 30/7
+				if ($weeks == 1) {
+					return "1 week ago";
+				} else {
+					return "$weeks weeks ago";
+				}
+			} else if ($months <= 12) {
+				if ($months == 1) {
+					return "1 month ago";
+				} else {
+					return "$months months ago";
+				}
+			} else {
+				if ($years == 1) {
+					return "1 year ago";
+				} else {
+					return "$years years ago";
+				}
+			}
+		}
+?>
 
 <!-- main content start -->
 <div class="main-content">
@@ -25,7 +80,7 @@
 			</div>
 		<?php } ?>
 		<div class="welcome-msg pt-3 pb-4">
-			<h1>All Projects</h1>
+			<h1>OTP Request Locations</h1>
 
 		</div>
 
@@ -33,42 +88,42 @@
 <div class="card">
     <div class="card-header">
 		<span class="pull-left">			
-		<h2>Projects</h2>		
+		<h2>List</h2>		
 		</span>
 		<span class="pull-right">			
-			<a href="<?php echo base_url();?>projects/add" class="btn btn-primary"> <i class="fa fa-plus"></i> Add</a>
 		</span>
 
     </div>
     <div class="card-body mb-3">
-	<button class="btn btn-danger" id="deleteSelected">Delete Selected</button>
+	<!-- <button class="btn btn-danger" id="deleteSelected">Delete Selected</button> -->
 
     <table id="records-table" class="table table-striped table-bordered">
         <thead>
             <tr>
-			<th><input type="checkbox" id="checkAll"></th>
-                <th>Name</th>
-                <th>API Key</th>
-                <th>Mask</th>
-                <th>✉ OTPs Sent</th>
-
-
-				<th>Action</th> 
+                <th>ip</th>
+                <th>city</th>
+                <th>region</th>
+                <th>country</th>
+                <th>loc</th>
+                <th>org</th>
+                <th>postal</th>
+                <th>timezone</th>
+                <th>Created On</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($records as $record): ?>
                 <tr>
-					<td><input type="checkbox" class="record-checkbox" data-record-id="<?= $record->id ?>"></td>
-                	<td><a href="<?php echo base_url();?>projects/view?id=<?= $record->id ?>"><?= $record->name ?></a></td>
-                    <td><?= $record->api_key ?></td>
-                    <td><?= $record->mask ?></td>
-                    <td><?= $record->otp_count ?></td>
-             
+                    <td><?= $record->ip ?></td>
+                    <td><?= $record->city ?></td>
+                    <td><?= $record->region ?></td>
+                    <td><?= $record->country ?></td>
+                    <td><a href="https://www.google.com/maps/place/<?= $record->loc ?>" target="_blank"><?= $record->loc ?></a></td>
+					<td><?= $record->org ?></td>
+					<td><?= $record->postal ?></td>
+					<td><?= $record->timezone ?></td>
+					<td><?= $record->created_date ?></td>
 
-                    <td>
-						<a href="<?php echo base_url();?>projects/edit?id=<?= $record->id ?>">Edit</a> | <a href="<?php echo base_url();?>projects/view?id=<?= $record->id ?>">View</a> | <a href="<?php echo base_url();?>projects/delete?id=<?= $record->id ?>">Delete</a>
-					</td> 
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -89,7 +144,7 @@
 
                                 'processing': true,
                                 // 'serverSide': true,
-                                'responsive': true,
+                                'responsive': false,
                                 // 'serverMethod': 'post',                               
                                 "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
                                 buttons: [
@@ -174,7 +229,7 @@
             if (selectedIds.length > 0) {
                 // Send an AJAX request to delete selected records
                 $.ajax({
-                    url: '<?php echo base_url();?>projects/deleteSelected',
+                    url: '<?php echo base_url();?>otp/deleteSelected',
                     type: 'POST',
                     data: { ids: selectedIds },
                     success: function(response) {

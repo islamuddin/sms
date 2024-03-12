@@ -143,6 +143,9 @@
 							<tr>
 								<td><strong>Sent On:</strong><br><?= $record->created_date ?> <small class="text-muted"> (<?= time_ago($record->created_date) ?>)</small></td>
                             </tr>
+							<tr>
+								<td><strong>IP:</strong><br><?= $record->ip ?></td>
+                            </tr>
                         </tbody>
                     </table>
 					
@@ -210,6 +213,7 @@
 												<p><strong>URL</strong>: <?= $message->url ?></p>
 												<p><strong>Response</strong>: <?= $message->response ?></p>
 												<p><strong>Status</strong>: <?php if($message->status==='1'){ echo "Sent"; }else{ echo "Failed";} ?></p>
+												<p><strong>IP</strong>: <?= $message->ip ?></p>
 											</div>
 										</div>
 									</div>

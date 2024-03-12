@@ -39,6 +39,10 @@
 			<label for="api_key">API Key</label>
 			<input type="text" name="api_key" id="api_key" class="form-control" required>		
 		</div>
+		<div class="form-group">
+			<label for="api_key">Mask</label>
+			<input type="text" name="mask" id="mask" class="form-control" value="SINDHPOLICE" required>		
+		</div>
 
     <button type="submit" class="btn btn-primary pull-right">Save</button>
 </form>

@@ -42,10 +42,16 @@ if(!$record){
             </div>
 
 			<div class="form-group">
-			<label for="api_key">API Key</label>
-			<input type="text" name="api_key" id="api_key" class="form-control" value="<?= $record->api_key ?>"  required>		
-		</div>
-		
+				<label for="api_key">API Key</label>
+				<input type="text" name="api_key" id="api_key" class="form-control" value="<?= $record->api_key ?>"  required>		
+			</div>
+
+
+			<div class="form-group">
+				<label for="api_key">Mask</label>
+				<input type="text" name="mask" id="mask" class="form-control" value="<?= $record->mask ?>"  required>		
+			</div>
+
 
             <button type="submit" class="btn btn-primary">Update</button>
             <a onclick="history.back()" class="btn btn-info mr-2 text-light">Go Back</a>
